@@ -214,3 +214,10 @@ fabric.properties
 .idea/**/markdown-navigator/
 
 # End of https://www.gitignore.io/api/pycharm
+
+# Created by https://www.gitignore.io/api/vscode
+# Edit at https://www.gitignore.io/?templates=vscode
+
+#!! ERROR: vscode is undefined. Use list command to see defined gitignore types !!#
+
+# End of https://www.gitignore.io/api/vscode
