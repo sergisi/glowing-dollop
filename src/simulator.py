@@ -56,10 +56,10 @@ def simulation(persons: int, ring_order: int, message_list: List[int]) -> List[L
 
 
 def simulation_to_dictionary(persons: int, simulation: List[List[int]]) -> Dict[int, List[int]]:
-    res = [[]] * persons
+    res = [0] * persons
     for i, ls in enumerate(simulation):
         for person in ls:
-            res[person].append(i)
+            res[person] += 1
     return res
 
 
@@ -70,7 +70,7 @@ def probability_of_all(persons: int, message_list: List[int], simulation: List[L
         msgcount[i] += 1
     res = []
     for i in range(persons):
-        res.append(msgcount[i] / len(sim[i]))
+        res.append(sim[i] / msgcount[i])
     return res
 
 
