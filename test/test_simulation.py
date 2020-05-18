@@ -25,4 +25,12 @@ class MyTestCase(unittest.TestCase):
                                 sim.simulation(self.person, self.ring_order, self.messages_list)):
             self.assertIn(person, mset)
 
-
+    def test_ring_order_in_choices(self):
+        or_weights = [20, 30, 40, 20]
+        weights = or_weights.copy()
+        for i in range(len(weights)):
+            wlen = i + 1
+            print("=====", wlen)
+            print(weights)
+            self.assertEqual(len(sim.get_choices(weights, wlen)), wlen, f'{len(sim.get_choices(weights, wlen))} {wlen}')
+            weights = or_weights.copy()
