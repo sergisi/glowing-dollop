@@ -4,7 +4,7 @@ import itertools
 import operator
 import random
 
-def simulation_first(persons: int, ring_order: int, message_list: List[int]) -> List[List[int]]:
+def simulation_not_weighted(persons: int, ring_order: int, message_list: List[int]) -> List[List[int]]:
     """
         Simulates the forum aproach without using a weighted choice, instead is using a
         uniform approach.
@@ -65,7 +65,7 @@ def get_choices(weights: List[int], k: int) -> List[int]:
 
 
 
-def simulation(persons: int, ring_order: int, message_list: List[int]) -> List[List[int]]:
+def simulation_weighted(persons: int, ring_order: int, message_list: List[int]) -> List[List[int]]:
     """
         Simulates the forum aproach using a weighted choice
         :param persons -> int: the number of people in the forum. Every person is named as [0, persons)
