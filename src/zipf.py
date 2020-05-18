@@ -4,7 +4,7 @@
         random.sample(ls, k=len(ls))
 """
 
-from typing import Generator, TypeVar
+from typing import Generator, TypeVar, List
 
 T = TypeVar('T')
 
