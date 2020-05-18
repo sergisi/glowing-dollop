@@ -4,6 +4,7 @@ import itertools
 import operator
 import random
 
+
 def simulation_first(persons: int, ring_order: int, message_list: List[int]) -> List[List[int]]:
     """
         Simulates the forum aproach without using a weighted choice, instead is using a
@@ -17,6 +18,8 @@ def simulation_first(persons: int, ring_order: int, message_list: List[int]) -> 
             the results are appended in a message like [[3, 4, 0]...]. It's returned as a List of
             Lists instead of a List of Sets for performance.
     """
+    if ring_order > persons:
+        raise Exception
     result = []
     choices = {i for i in range(persons)}
     for msg in message_list:
@@ -40,6 +43,7 @@ def get_choices(weights: List[int], k: int) -> List[int]:
         :param k -> int : number of people to be taken
         :return List[int]: list of the people choosed.
     """
+
     def accomulate_weights(ls):
         res = []
         acc = 0
@@ -55,14 +59,12 @@ def get_choices(weights: List[int], k: int) -> List[int]:
             if r < w:
                 return i
 
-
     res = []
     for _ in range(k):
         n = get_next(weights)
         res.append(n)
         weights[n] = 0
     return res
-
 
 
 def simulation(persons: int, ring_order: int, message_list: List[int]) -> List[List[int]]:
@@ -77,12 +79,14 @@ def simulation(persons: int, ring_order: int, message_list: List[int]) -> List[L
             the results are appended in a message like [[3, 4, 0]...]. It's returned as a List of
             Lists instead of a List of Sets for performance.
     """
+    if ring_order > persons:
+        raise Exception
     result = []
     weights = [1] * persons
     for msg in message_list:
         w = list(weights)
         w[msg] = 0
-        actual = get_choices(w, ring_order-1)
+        actual = get_choices(w, ring_order - 1)
         actual.append(msg)
         result.append(actual)
         for i in actual:
@@ -125,8 +129,6 @@ def probability_of_all(persons: int, message_list: List[int], simulation: List[L
     for i in message_list:
         msgcount[i] += 1
     res = []
-    for i in range(persons):
+    for i in filter(lambda x: msgcount[x] != 0, range(persons)):
         res.append(sim[i] / msgcount[i])
     return res
-
-
