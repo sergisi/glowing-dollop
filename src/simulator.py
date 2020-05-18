@@ -19,7 +19,7 @@ def simulation_first(persons: int, ring_order: int, message_list: List[int]) -> 
             Lists instead of a List of Sets for performance.
     """
     if ring_order > persons:
-        raise Exception
+        raise ValueError
     result = []
     choices = {i for i in range(persons)}
     for msg in message_list:
@@ -80,7 +80,7 @@ def simulation(persons: int, ring_order: int, message_list: List[int]) -> List[L
             Lists instead of a List of Sets for performance.
     """
     if ring_order > persons:
-        raise Exception
+        raise ValueError
     result = []
     weights = [1] * persons
     for msg in message_list:
