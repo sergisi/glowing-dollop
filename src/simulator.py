@@ -5,8 +5,8 @@ import operator
 import random
 
 
-def simulation_first(persons: int, ring_order: int, 
-        message_list: List[int]) -> List[List[int]]:
+def simulation_first(persons: int, ring_order: int,
+                     message_list: List[int]) -> List[List[int]]:
     """
         Simulates the forum aproach without using a 
         weighted choice, instead is using a uniform approach.
@@ -25,7 +25,7 @@ def simulation_first(persons: int, ring_order: int,
             performance.
     """
     if ring_order > persons:
-        raise Exception
+        raise ValueError
     result = []
     choices = {i for i in range(persons)}
     for msg in message_list:
@@ -79,7 +79,7 @@ def get_choices(weights: List[int], k: int) -> List[int]:
 
 
 def simulation(persons: int, ring_order: int,
-        message_list: List[int]) -> List[List[int]]:
+               message_list: List[int]) -> List[List[int]]:
     """
         Simulates the forum aproach using a weighted choice
         :param persons -> int: the number of people in the forum.
@@ -96,7 +96,7 @@ def simulation(persons: int, ring_order: int,
             Lists instead of a List of Sets for performance.
     """
     if ring_order > persons:
-        raise Exception
+        raise ValueError
     result = []
     weights = [1] * persons
     for msg in message_list:
@@ -110,8 +110,8 @@ def simulation(persons: int, ring_order: int,
     return result
 
 
-def simulation_to_dictionary(persons: int, 
-        simulation: List[List[int]]) -> List[int]:
+def simulation_to_dictionary(persons: int,
+                             simulation: List[List[int]]) -> List[int]:
     """
     Parses a result of a simulations to a 
     List of integers, where the nth position is the 
@@ -127,6 +127,7 @@ def simulation_to_dictionary(persons: int,
             res[person] += 1
     return res
 
+
 def get_messagecount(persons: int, message_list: List[int]) -> List[int]:
     """
         Parses a message_list and counts the number of messages send by a     
@@ -137,8 +138,8 @@ def get_messagecount(persons: int, message_list: List[int]) -> List[int]:
     return msgcount
 
 
-def probability_of_all(persons: int, message_list: List[int], 
-        simulation: List[List[int]]) -> List[float]:
+def probability_of_all(persons: int, message_list: List[int],
+                       simulation: List[List[int]]) -> List[float]:
     """
         Parses a simulation into a List containing 
         in the nth value the anounimosity of the nth person. The common 
@@ -158,8 +159,5 @@ def probability_of_all(persons: int, message_list: List[int],
     """
     sim = simulation_to_dictionary(persons, simulation)
     msgcount = get_messagecount(persons, message_list)
-    return [sim[i] / msgcount[i] if msgcount != 0 else 0 
-            for i in range(persons)
-           ]
-
-
+    return [sim[i] / msgcount[i] if msgcount[i] != 0 else 0
+            for i in range(persons)]
