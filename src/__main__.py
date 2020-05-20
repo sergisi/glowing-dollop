@@ -13,13 +13,16 @@ def probability(num_people, k, messages, num_loop):
 
 
 def main():
-    if len(sys.argv) != 4:
+    if len(sys.argv) != 5:
         print("Usage: python -m src <num_people> <k> <max_msg> <num-loop>")
+        sys.exit()
     num_people, k, max_msg, num_loop = list(map(int, sys.argv[1:]))
     messages = zf.zipf(num_people, max_msg, 1.5)
     probs = list(map(lambda x: x / num_loop,
-        reduce(lambda ls1, ls2: [a + b for a, b in zip(ls1, ls2)], probability(num_people, k, messages, num_loop))))
+                     reduce(lambda ls1, ls2: [a + b for a, b in zip(ls1, ls2)],
+                            probability(num_people, k, messages, num_loop))))
     print(probs)
+
 
 if __name__ == '__main__':
     main()
