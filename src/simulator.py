@@ -161,3 +161,5 @@ def probability_of_all(persons: int, message_list: List[int],
     msgcount = get_messagecount(persons, message_list)
     return [sim[i] / msgcount[i] if msgcount[i] != 0 else 0
             for i in range(persons)]
+
+

@@ -23,7 +23,8 @@ def zipf(persons: int,
     prob_msm = lambda x: 1 / (x ** s)
     total = sum(prob_msm(y) for y in range(1, maximum_messages + 1))
     number_persons = [prob_msm(x) * persons / total
-                      for x in range(1, persons + 1)]
+                      for x in range(1, maximum_messages + 1)]
+    # import pdb; pdb.set_trace()
     number_persons = correct_msm(number_persons, persons)
     messages: List[int] = []
     current_person = 0  # current person to add in the message list
