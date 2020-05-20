@@ -3,7 +3,7 @@ import sys
 import src.simulator as sim
 import src.zipf as zf
 from functools import reduce
-
+from collections import Counter
 
 def probability(num_people, k, messages, num_loop):
     for i in range(num_loop):
@@ -18,6 +18,8 @@ def main():
         sys.exit()
     num_people, k, max_msg, num_loop = list(map(int, sys.argv[1:]))
     messages = zf.zipf(num_people, max_msg, 1.5)
+    print(Counter(messages).most_common(15))
+    print(messages)
     probs = list(map(lambda x: x / num_loop,
                      reduce(lambda ls1, ls2: [a + b for a, b in zip(ls1, ls2)],
                             probability(num_people, k, messages, num_loop))))
