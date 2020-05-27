@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2020.5.8)  27 MAY 2020 16:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2020.5.8)  27 MAY 2020 17:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -799,41 +799,141 @@ Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
 (/usr/share/texmf-dist/tex/generic/oberdiek/iflang.sty
 Package: iflang 2018/01/21 v1.7 Checks for the current language (HO)
 Package iflang Info: Naming convention for patterns: babel.
-) (./main.aux)
+)
+(/usr/share/texmf-dist/tex/latex/pgfplots/pgfplotstable.sty
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
+Package: pgfplotstable 2018/03/28 v1.16 Table typesetting and Pretty-printing (
+1.16)
+
+(/usr/share/texmf-dist/tex/latex/pgfplots/pgfplots.sty
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
+Package: pgfplots 2018/03/28 v1.16 Data Visualization (1.16)
+
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
+\t@pgfplots@toka=\toks46
+\t@pgfplots@tokb=\toks47
+\t@pgfplots@tokc=\toks48
+\pgfplots@tmpa=\dimen263
+\c@pgfplots@coordindex=\count188
+\c@pgfplots@scanlineindex=\count189
+
+(/usr/share/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code.tex))
+(/usr/share/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.code.tex)
+(/usr/share/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_l
+oader.code.tex
+(/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex))
+(/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex
+(/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructure
+.code.tex)
+(/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructure
+ext.code.tex)
+(/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray.code.te
+x
+\c@pgfplotsarray@tmp=\count190
+)
+(/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatrix.code.t
+ex)
+(/usr/share/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshared.code.t
+ex
+\c@pgfplotstable@counta=\count191
+\t@pgfplotstable@a=\toks49
+)
+(/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque.code.te
+x) (/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.code.tex
+(/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.data.code.tex))
+(/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.code.tex)
+(/usr/share/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.surfshading
+.code.tex
+\c@pgfplotslibrarysurf@no=\count192
+
+(/usr/share/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfshading.
+pgfsys-pdftex.def)))
+(/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.tex
+(/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex))
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.tex)
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.tex
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.code.tex
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code.tex)))
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex)
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.code.tex)
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex)
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex)
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex)
+(/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex)
+(/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+decorations.code.tex
+(/usr/share/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.code.tex
+\pgfdecoratedcompleteddistance=\dimen264
+\pgfdecoratedremainingdistance=\dimen265
+\pgfdecoratedinputsegmentcompleteddistance=\dimen266
+\pgfdecoratedinputsegmentremainingdistance=\dimen267
+\pgf@decorate@distancetomove=\dimen268
+\pgf@decorate@repeatstate=\count193
+\pgfdecorationsegmentamplitude=\dimen269
+\pgfdecorationsegmentlength=\dimen270
+)
+\tikz@lib@dec@box=\box73
+)
+(/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+decorations.pathmorphing.code.tex
+(/usr/share/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorati
+ons.pathmorphing.code.tex))
+(/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+decorations.pathreplacing.code.tex
+(/usr/share/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorati
+ons.pathreplacing.code.tex))
+\pgfplots@numplots=\count194
+\pgfplots@xmin@reg=\dimen271
+\pgfplots@xmax@reg=\dimen272
+\pgfplots@ymin@reg=\dimen273
+\pgfplots@ymax@reg=\dimen274
+\pgfplots@zmin@reg=\dimen275
+\pgfplots@zmax@reg=\dimen276
+)
+(/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
+plotmarks.code.tex
+File: tikzlibraryplotmarks.code.tex 2019/08/03 v3.1.4b (3.1.4b)
+
+(/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.tex
+File: pgflibraryplotmarks.code.tex 2019/08/03 v3.1.4b (3.1.4b)
+))) (/usr/share/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstable.code.tex
+
+(/usr/share/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstable.coltype.code
+.tex))) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Info: Redefining \microtypecontext on input line 84.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Info: Redefining \microtypecontext on input line 86.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `basictext'.
-LaTeX Info: Redefining \showhyphens on input line 84.
+LaTeX Info: Redefining \showhyphens on input line 86.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
-
-(/usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+ (/usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-\AtBeginShipoutBox=\box73
-Package hyperref Info: Link coloring OFF on input line 84.
+\AtBeginShipoutBox=\box74
+Package hyperref Info: Link coloring OFF on input line 86.
 
 (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -841,11 +941,11 @@ Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 (/usr/share/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count188
+\c@section@level=\count195
 )
-LaTeX Info: Redefining \ref on input line 84.
-LaTeX Info: Redefining \pageref on input line 84.
-LaTeX Info: Redefining \nameref on input line 84.
+LaTeX Info: Redefining \ref on input line 86.
+LaTeX Info: Redefining \pageref on input line 86.
+LaTeX Info: Redefining \nameref on input line 86.
  (./main.out)
 (./main.out)
 \@outlinefile=\write4
@@ -853,17 +953,17 @@ LaTeX Info: Redefining \nameref on input line 84.
 
  (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count189
-\scratchdimen=\dimen263
-\scratchbox=\box74
-\nofMPsegments=\count190
-\nofMParguments=\count191
-\everyMPshowfont=\toks46
-\MPscratchCnt=\count192
-\MPscratchDim=\dimen264
-\MPnumerator=\count193
-\makeMPintoPDFobject=\count194
-\everyMPtoPDFconversion=\toks47
+\scratchcounter=\count196
+\scratchdimen=\dimen277
+\scratchbox=\box75
+\nofMPsegments=\count197
+\nofMParguments=\count198
+\everyMPshowfont=\toks50
+\MPscratchCnt=\count199
+\MPscratchDim=\dimen278
+\MPnumerator=\count266
+\makeMPintoPDFobject=\count267
+\everyMPtoPDFconversion=\toks51
 ) (/usr/share/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -881,21 +981,26 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count195
+\c@lstlisting=\count268
 
 ABD: EveryShipout initializing macros
-<imgs/UDL.png, id=7, 253.94875pt x 199.74625pt>
+
+Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
+ick labels; missing features). Consider writing \pgfplotsset{compat=1.16} into 
+your preamble.
+ on input line 86.
+
+<imgs/UDL.png, id=39, 253.94875pt x 199.74625pt>
 File: imgs/UDL.png Graphic file (type png)
 <use imgs/UDL.png>
-Package pdftex.def Info: imgs/UDL.png  used on input line 90.
+Package pdftex.def Info: imgs/UDL.png  used on input line 92.
 (pdftex.def)             Requested size: 142.26378pt x 111.90285pt.
 LaTeX Font Info:    Trying to load font information for U+lasy on input line 11
-2.
-
+4.
 (/usr/share/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 112
+LaTeX Font Info:    Trying to load font information for U+msa on input line 114
 .
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -904,7 +1009,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 112
+LaTeX Font Info:    Trying to load font information for U+msb on input line 114
 .
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -932,35 +1037,90 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.139 \newpage
-               [1] (./tab/uniform.tex [2]) (./tab/prefatach.tex [3] [4])
-[5]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 144.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 144.
+l.141 \newpage
+               [1]
+<imgs/histogram-13.png, id=82, 462.528pt x 346.896pt>
+File: imgs/histogram-13.png Graphic file (type png)
+<use imgs/histogram-13.png>
+Package pdftex.def Info: imgs/histogram-13.png  used on input line 143.
+(pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
+ (./tab/uniform/13.tex) (./tab/prefatach/13.tex)
+<imgs/histogram-14.png, id=84, 462.528pt x 346.896pt>
+File: imgs/histogram-14.png Graphic file (type png)
+<use imgs/histogram-14.png>
+Package pdftex.def Info: imgs/histogram-14.png  used on input line 149.
+(pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
+
+(./tab/uniform/14.tex [2 <./imgs/histogram-13.png>]) (./tab/prefatach/14.tex)
+<imgs/histogram-15.png, id=90, 462.528pt x 346.896pt>
+File: imgs/histogram-15.png Graphic file (type png)
+<use imgs/histogram-15.png>
+Package pdftex.def Info: imgs/histogram-15.png  used on input line 153.
+(pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
+
+(./tab/uniform/15.tex [3 <./imgs/histogram-14.png>]) (./tab/prefatach/15.tex)
+<imgs/histogram-16.png, id=96, 462.528pt x 346.896pt>
+File: imgs/histogram-16.png Graphic file (type png)
+<use imgs/histogram-16.png>
+Package pdftex.def Info: imgs/histogram-16.png  used on input line 158.
+(pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
+
+(./tab/uniform/16.tex [4 <./imgs/histogram-15.png>]) (./tab/prefatach/16.tex)
+<imgs/histogram-17.png, id=102, 462.528pt x 346.896pt>
+File: imgs/histogram-17.png Graphic file (type png)
+<use imgs/histogram-17.png>
+Package pdftex.def Info: imgs/histogram-17.png  used on input line 163.
+(pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
+
+(./tab/uniform/17.tex [5 <./imgs/histogram-16.png>]) (./tab/prefatach/17.tex)
+<imgs/histogram-18.png, id=108, 462.528pt x 346.896pt>
+File: imgs/histogram-18.png Graphic file (type png)
+<use imgs/histogram-18.png>
+Package pdftex.def Info: imgs/histogram-18.png  used on input line 168.
+(pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
+
+(./tab/uniform/18.tex [6 <./imgs/histogram-17.png>]) (./tab/prefatach/18.tex)
+<imgs/histogram-19.png, id=115, 462.528pt x 346.896pt>
+File: imgs/histogram-19.png Graphic file (type png)
+<use imgs/histogram-19.png>
+Package pdftex.def Info: imgs/histogram-19.png  used on input line 173.
+(pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
+
+(./tab/uniform/19.tex [7 <./imgs/histogram-18.png>]) (./tab/prefatach/19.tex)
+<imgs/histogram-20.png, id=121, 462.528pt x 346.896pt>
+File: imgs/histogram-20.png Graphic file (type png)
+<use imgs/histogram-20.png>
+Package pdftex.def Info: imgs/histogram-20.png  used on input line 178.
+(pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
+
+(./tab/uniform/20.tex [8 <./imgs/histogram-19.png>]) (./tab/prefatach/20.tex)
+[9 <./imgs/histogram-20.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 181.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 181.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 144.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 144.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 181.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 181.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 144.
+(rerunfilecheck)             Checksum: 3F44614CA43468F855A9B92582B2C319;320.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 181.
  ) 
 Here is how much of TeX's memory you used:
- 22646 strings out of 492167
- 412939 string characters out of 6131559
- 566392 words of memory out of 5000000
- 26527 multiletter control sequences out of 15000+600000
+ 33096 strings out of 492167
+ 764470 string characters out of 6131559
+ 1046018 words of memory out of 5000000
+ 36773 multiletter control sequences out of 15000+600000
  13004 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,9n,86p,1007b,425s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,9n,102p,1007b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 r8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on main.pdf (6 pages, 78904 bytes).
+Output written on main.pdf (10 pages, 186291 bytes).
 PDF statistics:
- 66 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
- 9 named destinations out of 1000 (max. 500000)
- 12306 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 162 PDF objects out of 1000 (max. 8388607)
+ 124 compressed objects within 2 object streams
+ 29 named destinations out of 1000 (max. 500000)
+ 12410 words of extra memory for PDF output out of 14400 (max. 10000000)
 
