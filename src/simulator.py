@@ -5,8 +5,8 @@ import operator
 import random
 
 
-def simulation_first(persons: int, ring_order: int,
-                     message_list: List[int]) -> List[List[int]]:
+def uniform_simulation(persons: int, ring_order: int,
+                       message_list: List[int]) -> List[List[int]]:
     """
         Simulates the forum aproach without using a 
         weighted choice, instead is using a uniform approach.
@@ -78,8 +78,8 @@ def get_choices(weights: List[int], k: int) -> List[int]:
     return res
 
 
-def simulation(persons: int, ring_order: int,
-               message_list: List[int]) -> List[List[int]]:
+def preferential_attachment_simulation(persons: int, ring_order: int,
+                                       message_list: List[int]) -> List[List[int]]:
     """
         Simulates the forum aproach using a weighted choice
         :param persons -> int: the number of people in the forum.
