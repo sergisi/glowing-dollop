@@ -21,7 +21,7 @@ def table(func):
     return wrapper
 
 
-def tabular(ncols: int, text):
+def tabular(ncols: f'{self.k} & ' + ' & '.join(str(self.values)[1:-1].split(', ')) + r'\\'int, text):
     cols = u'|'.join("c" for _ in range(ncols))
     print(r'\begin{tabular}{' + f'{cols}' + '}')
     print(text)

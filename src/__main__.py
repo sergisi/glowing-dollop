@@ -31,27 +31,27 @@ def get_probs(num_people, k, max_msg, num_loop, s, simulation):
 
 def gen(k_range, s, simulation, out_file):
     for k in k_range:
-        print("k:", k, file=out_file)
+        print(f'{k} & ', file=out_file, end='')
         values = get_probs(200, k, 15, 10, s, simulation)
-        print(values, file=out_file)
+        print(' & '.join(str(list(map(lambda x: round(x,4), values)))[1:-1].split(', ')) + r'\\', file=out_file)
         yield values
 
 
 def show_average(k_range, s_range, simulation, out_file):
     for s in s_range:
         print("\t======== S:", s, "========", file=out_file)
-        m15, m10, m1 = map(lambda x: x / 10, reduce(lambda x, y: (x[0] + y[0], x[1] + y[1], x[2] + y[2]),
+        values = map(lambda x: x / 5, reduce(lambda x, y: (x[0] + y[0], x[1] + y[1], x[2] + y[2]),
                                                     gen(k_range, s, simulation, out_file)))
-        print("M:", m15, m10, m1, file=out_file)
+        print('& '+' & '.join(str(list(map(lambda x : round(x, 4), values)))[1:-1].split(', ')) + r'\\', file=out_file)
 
 
 def main():
     if len(sys.argv) == 1:
         s_range = list(map(lambda x: x / 10, range(13, 21)))
         k_range = [4, 6, 8, 10, 12]
-        with open("out/prefential.txt", mode="w") as file:
+        with open("out/prefential2.txt", mode="w") as file:
             show_average(k_range, s_range, sim.preferential_attachment_simulation, file)
-        with open("out/uniform.txt", mode="w") as file:
+        with open("out/uniform2.txt", mode="w") as file:
             show_average(k_range, s_range, sim.uniform_simulation, file)
         sys.exit()
     if len(sys.argv) != 6:
