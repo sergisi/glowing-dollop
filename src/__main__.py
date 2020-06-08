@@ -38,30 +38,33 @@ def gen(k_range, s, simulation, out_file):
     print(r'\hline', file=out_file)
 
 
-def show_average(k_range, s_range, simulation, out_file):
+def show_average(k_range, s_range, simulation, prefix):
     for s in s_range:
-        print(r'\begin{table}[H]', file=out_file)
-        print(r'\begin{tabular}{c|ccc}', file=out_file)
-        print(r"\multicolumn{4}{c}{S:" + f"{s}" + r"}\\\hline", file=out_file)
-        values = map(lambda x: x / len(k_range), reduce(lambda x, y: (x[0] + y[0], x[1] + y[1], x[2] + y[2]),
-                                             gen(k_range, s, simulation, out_file)))
-        print('& ' + ' & '.join(str(list(map(lambda x: round(x, 4), values)))[1:-1].split(', ')) + r'\\', file=out_file)
-        print(r'\end{tabular}', file=out_file)
-        print(r'\end{table}', file=out_file)
+        with open(f'{prefix}{int(s*10)}.tex', 'w') as out_file:
+            print(r'\begin{table}[H]', file=out_file)
+            print(r'\centering', file=out_file)
+            print(r'\begin{tabular}{c|ccc}', file=out_file)
+            print(r'K &1msm &5msm &15msm\\', file=out_file)
+            print(r'\hline', file=out_file)
+            values = map(lambda x: x / len(k_range), reduce(lambda x, y: (x[0] + y[0], x[1] + y[1], x[2] + y[2]),
+                                                 gen(k_range, s, simulation, out_file)))
+            print('& ' + ' & '.join(str(list(map(lambda x: round(x, 4), values)))[1:-1].split(', ')) + r'\\', file=out_file)
+            print(r'\end{tabular}', file=out_file)
+            print(r'\caption{S:' + f'{s}' + r'}', file=out_file)
+            print(r'\label{tab:s'f'{s}'r'}', file=out_file)
+            print(r'\end{table}', file=out_file)
 
 
 def main():
     if len(sys.argv) == 1:
         s_range = list(map(lambda x: x / 10, range(13, 21)))
         k_range = list(range(3, 13))
-        with open("out/prefential3.txt", mode="w") as file:
-            show_average(k_range, s_range, sim.preferential_attachment_simulation, file)
-        with open("out/uniform3.txt", mode="w") as file:
-            show_average(k_range, s_range, sim.uniform_simulation, file)
+        show_average(k_range, s_range, sim.preferential_attachment_simulation, 'doc/tab/prefatach/')
+        show_average(k_range, s_range, sim.uniform_simulation, 'doc/tab/uniform/')
         sys.exit()
     if len(sys.argv) != 6:
-        print("Usage: python -m src <num_people> <k> <max_msg> <num-loop> <s-zipf> ")
-        print("Usage: python -m src")
+        print('Usage: python -m src <num_people> <k> <max_msg> <num-loop> <s-zipf> ')
+        print('Usage: python -m src')
         sys.exit()
     num_people, k, max_msg, num_loop = list(map(int, sys.argv[1:-1]))
     s = float(sys.argv[-1])
