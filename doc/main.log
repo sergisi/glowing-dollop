@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2020.5.8)  9 JUN 2020 11:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2020.5.7)  9 JUN 2020 11:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1148,11 +1148,11 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 237.
  ) 
 Here is how much of TeX's memory you used:
- 33145 strings out of 492167
- 764951 string characters out of 6131559
+ 33143 strings out of 492167
+ 764935 string characters out of 6131559
  1054018 words of memory out of 5000000
  36791 multiletter control sequences out of 15000+600000
- 13734 words of font info for 67 fonts, out of 8000000 for 9000
+ 13683 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  71i,9n,102p,1007b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
@@ -1162,7 +1162,7 @@ c/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/s
 hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (11 pages, 216331 bytes).
+Output written on main.pdf (11 pages, 216320 bytes).
 PDF statistics:
  222 PDF objects out of 1000 (max. 8388607)
  181 compressed objects within 2 object streams
