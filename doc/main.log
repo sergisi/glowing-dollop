@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2020.5.8)  9 JUN 2020 11:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2020.5.8)  9 JUN 2020 11:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1069,95 +1069,90 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \hbox (badness 10000) in paragraph at lines 146--156
+Underfull \hbox (badness 10000) in paragraph at lines 146--155
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 146--156
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 146--156
+Underfull \hbox (badness 10000) in paragraph at lines 146--155
 
  []
 
 <imgs/histogram-13.png, id=126, 462.528pt x 346.896pt>
 File: imgs/histogram-13.png Graphic file (type png)
 <use imgs/histogram-13.png>
-Package pdftex.def Info: imgs/histogram-13.png  used on input line 166.
+Package pdftex.def Info: imgs/histogram-13.png  used on input line 165.
 (pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
 (./tab/uniform/13.tex) (./tab/prefatach/13.tex [2 <./imgs/histogram-13.png>])
 <imgs/histogram-14.png, id=134, 462.528pt x 346.896pt>
 File: imgs/histogram-14.png Graphic file (type png)
 <use imgs/histogram-14.png>
-Package pdftex.def Info: imgs/histogram-14.png  used on input line 174.
+Package pdftex.def Info: imgs/histogram-14.png  used on input line 173.
 (pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
 
 (./tab/uniform/14.tex) (./tab/prefatach/14.tex [3 <./imgs/histogram-14.png>])
 <imgs/histogram-15.png, id=140, 462.528pt x 346.896pt>
 File: imgs/histogram-15.png Graphic file (type png)
 <use imgs/histogram-15.png>
-Package pdftex.def Info: imgs/histogram-15.png  used on input line 183.
+Package pdftex.def Info: imgs/histogram-15.png  used on input line 182.
 (pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
 
 (./tab/uniform/15.tex) (./tab/prefatach/15.tex [4 <./imgs/histogram-15.png>])
 <imgs/histogram-16.png, id=146, 462.528pt x 346.896pt>
 File: imgs/histogram-16.png Graphic file (type png)
 <use imgs/histogram-16.png>
-Package pdftex.def Info: imgs/histogram-16.png  used on input line 193.
+Package pdftex.def Info: imgs/histogram-16.png  used on input line 192.
 (pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
 
 (./tab/uniform/16.tex) (./tab/prefatach/16.tex [5 <./imgs/histogram-16.png>])
 <imgs/histogram-17.png, id=152, 462.528pt x 346.896pt>
 File: imgs/histogram-17.png Graphic file (type png)
 <use imgs/histogram-17.png>
-Package pdftex.def Info: imgs/histogram-17.png  used on input line 203.
+Package pdftex.def Info: imgs/histogram-17.png  used on input line 202.
 (pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
 
 (./tab/uniform/17.tex) (./tab/prefatach/17.tex [6 <./imgs/histogram-17.png>])
 <imgs/histogram-18.png, id=160, 462.528pt x 346.896pt>
 File: imgs/histogram-18.png Graphic file (type png)
 <use imgs/histogram-18.png>
-Package pdftex.def Info: imgs/histogram-18.png  used on input line 213.
+Package pdftex.def Info: imgs/histogram-18.png  used on input line 212.
 (pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
 
 (./tab/uniform/18.tex) (./tab/prefatach/18.tex [7 <./imgs/histogram-18.png>])
 <imgs/histogram-19.png, id=166, 462.528pt x 346.896pt>
 File: imgs/histogram-19.png Graphic file (type png)
 <use imgs/histogram-19.png>
-Package pdftex.def Info: imgs/histogram-19.png  used on input line 223.
+Package pdftex.def Info: imgs/histogram-19.png  used on input line 222.
 (pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
 
 (./tab/uniform/19.tex) (./tab/prefatach/19.tex [8 <./imgs/histogram-19.png>])
 <imgs/histogram-20.png, id=172, 462.528pt x 346.896pt>
 File: imgs/histogram-20.png Graphic file (type png)
 <use imgs/histogram-20.png>
-Package pdftex.def Info: imgs/histogram-20.png  used on input line 233.
+Package pdftex.def Info: imgs/histogram-20.png  used on input line 232.
 (pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
 
 (./tab/uniform/20.tex) (./tab/prefatach/20.tex [9 <./imgs/histogram-20.png>])
 [10]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 238.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 238.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 237.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 237.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 238.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 238.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 237.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 237.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 0B59FC233A8CB69B7426DF09A05BC68F;443.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 238.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 237.
  ) 
 Here is how much of TeX's memory you used:
- 33143 strings out of 492167
- 764937 string characters out of 6131559
+ 33145 strings out of 492167
+ 764951 string characters out of 6131559
  1054018 words of memory out of 5000000
  36791 multiletter control sequences out of 15000+600000
- 13683 words of font info for 66 fonts, out of 8000000 for 9000
+ 13734 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  71i,9n,102p,1007b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
@@ -1167,7 +1162,7 @@ c/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/s
 hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (11 pages, 215835 bytes).
+Output written on main.pdf (11 pages, 216331 bytes).
 PDF statistics:
  222 PDF objects out of 1000 (max. 8388607)
  181 compressed objects within 2 object streams
