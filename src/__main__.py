@@ -51,7 +51,8 @@ def show_average(k_range, s_range, simulation, prefix):
                                                  gen(k_range, s, simulation, out_file)))
             print('& ' + ' & '.join(str(list(map(lambda x: round(x, 4), values)))[1:-1].split(', ')) + r'\\', file=out_file)
             print(r'\end{tabular}', file=out_file)
-            print(r'\caption{S:' + f'{s}' + r'}', file=out_file)
+            simulation_name = simulation.__name__.replace("_", " ")
+            print(r'\caption{Simulation method:'f'{simulation_name} S:{s}' + r'}', file=out_file)
             print(r'\label{tab:s'f'{s}'r'}', file=out_file)
             print(r'\end{table}', file=out_file)
 

@@ -79,7 +79,8 @@ def get_choices(weights: List[int], k: int) -> List[int]:
 
 
 def preferential_attachment_simulation(persons: int, ring_order: int,
-                                       message_list: List[int]) -> List[List[int]]:
+                                       message_list: List[int],
+                                       message_weight: List[int]=100) -> List[List[int]]:
     """
         Simulates the forum aproach using a weighted choice
         :param persons -> int: the number of people in the forum.
@@ -106,7 +107,7 @@ def preferential_attachment_simulation(persons: int, ring_order: int,
         actual.append(msg)
         result.append(actual)
         for i in actual:
-            weights[i] += 1
+            weights[i] += message_weight
     return result
 
 
