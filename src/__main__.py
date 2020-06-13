@@ -5,6 +5,7 @@ import src.zipf as zf
 from functools import reduce
 from collections import Counter
 
+import argparse
 
 def probability(num_people, k, messages, num_loop, simulation):
     for i in range(num_loop):
@@ -55,20 +56,24 @@ def show_average(k_range, s_range, simulation, prefix):
             print(r'\end{table}', file=out_file)
 
 
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Simulation of an anonymous forum')
+
+    parser.add_argument(f'-p', f'--num-people', dest=f'people',
+                        type=int, default=200, help=f'Number of people')
+    parser.add_argument(f'-kmin', f'--k-min-set', dest=f'kmin',
+                        type=int, default=3, help=f'Minimum range of set')
+    parser.add_argument(f'-kmax', f'--k-max-set', dest=f'kmax',
+                        type=int, default=13, help=f'Maximum range of set')
+    return parser.parse_args()
+
 def main():
-    if len(sys.argv) == 1:
-        s_range = list(map(lambda x: x / 10, range(13, 21)))
-        k_range = list(range(3, 13))
-        show_average(k_range, s_range, sim.preferential_attachment_simulation, 'doc/tab/prefatach/')
-        show_average(k_range, s_range, sim.uniform_simulation, 'doc/tab/uniform/')
-        sys.exit()
-    if len(sys.argv) != 6:
-        print('Usage: python -m src <num_people> <k> <max_msg> <num-loop> <s-zipf> ')
-        print('Usage: python -m src')
-        sys.exit()
-    num_people, k, max_msg, num_loop = list(map(int, sys.argv[1:-1]))
-    s = float(sys.argv[-1])
-    get_probs(num_people, k, max_msg, num_loop, s, sys.stdout)
+    parser = parse_arguments()
+    s_range = list(map(lambda x: x / 10, range(13, 21)))
+    k_range = list(range(parser.kmin, parser.kmax))
+    show_average(k_range, s_range, sim.preferential_attachment_simulation, 'doc/tab/prefatach/')
+    show_average(k_range, s_range, sim.uniform_simulation, 'doc/tab/uniform/')
+    sys.exit()
 
 
 if __name__ == '__main__':
