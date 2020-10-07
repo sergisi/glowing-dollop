@@ -1,7 +1,7 @@
 import random
 import sys
-import src.simulator as sim
-import src.zipf as zf
+import simulator as sim
+import distribution as distribution
 from functools import reduce
 from collections import Counter
 

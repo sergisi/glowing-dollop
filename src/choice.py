@@ -91,6 +91,70 @@ class PreferentialAttachmentSim(Choice):
                 weights[i] += self.message_weight
         return result
 
+
 if __name__ == "__main__":
-    sim = PreferentialAttachmentSim(40, 4, [1,2,3])
+    sim = PreferentialAttachmentSim(40, 4, [1, 2, 3])
     print(sim.apply())
+
+
+class AbstractFactoryChoice:
+
+    @staticmethod
+    def AFUniform(persons: int, ring_order: int, message_list: List[int]):
+        return UniformSim(persons, ring_order, message_list)
+
+    @staticmethod
+    def AFPAttach(persons: int, ring_order: int, message_list: List[int], weight: int):
+        return PreferentialAttachmentSim(persons, ring_order, message_list, weight)
+
+
+class ChoiceBuilder(ABC):
+
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def set_message_list(self, message_list: List[int]):
+        pass
+
+    @abstractmethod
+    def build(self) -> Choice:
+        pass
+    
+
+class PAttachBuilder(ChoiceBuilder):
+
+    def __init__(self):
+        super().__init__()
+        self.persons = None
+        self.ring_order = None
+        self.message_list = None
+        self.weight = None
+
+
+    def set_persons(self, persons):
+        if self.persons is None:
+            self.persons = persons
+            return self
+        raise EnvironmentError
+    
+    def set_ring_order(self, ring_order: int):
+        if self.ring_order is None:
+            self.ring_order = ring_order
+            return self
+        raise EnvironmentError
+
+    def set_message_list(self, message_list: List[int]):
+        if self.message_list is None:
+            self.message_list = message_list
+            return self
+        raise EnvironmentError
+
+    def set_weight(self, weight):
+        if self.weight is None:
+            self.weight = weight
+            return self
+        raise EnvironmentError
+
+    def build(self):
+        return PreferentialAttachmentSim()
