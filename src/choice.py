@@ -1,3 +1,4 @@
+from __future__ import annotations
 from abc import ABC, abstractmethod
 import random
 from typing import List
@@ -132,29 +133,31 @@ class PAttachBuilder(ChoiceBuilder):
         self.weight = None
 
 
-    def set_persons(self, persons):
+    def set_persons(self, persons) -> PAttachBuilder:
         if self.persons is None:
             self.persons = persons
             return self
         raise EnvironmentError
     
-    def set_ring_order(self, ring_order: int):
+    def set_ring_order(self, ring_order: int) -> PAttachBuilder:
         if self.ring_order is None:
             self.ring_order = ring_order
             return self
         raise EnvironmentError
 
-    def set_message_list(self, message_list: List[int]):
+    def set_message_list(self, message_list: List[int]) -> PAttachBuilder:
         if self.message_list is None:
             self.message_list = message_list
             return self
         raise EnvironmentError
 
-    def set_weight(self, weight):
+    def set_weight(self, weight) -> PAttachBuilder:
         if self.weight is None:
             self.weight = weight
             return self
         raise EnvironmentError
 
     def build(self):
-        return PreferentialAttachmentSim()
+        if self.persons is None or self.ring_order is None or self.message_list is None or self.weight is None:
+            raise ValueError
+        return PreferentialAttachmentSim(self.persons, self.ring_order, self.message_list, self.weight)
