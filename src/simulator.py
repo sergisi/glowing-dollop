@@ -1,4 +1,4 @@
-from typing import List, Dict, Set, DefaultDict
+from typing import List, Dict, Set, DefaultDict, Optional
 from collections import defaultdict
 import itertools
 import operator
@@ -55,7 +55,7 @@ def get_choices(weights: List[int], k: int) -> List[int]:
         :return List[int]: list of the people choosed.
     """
 
-    def accomulate_weights(ls):
+    def accomulate_weights(ls) -> List[int]:
         res = []
         acc = 0
         for i in ls:
@@ -63,12 +63,13 @@ def get_choices(weights: List[int], k: int) -> List[int]:
             res.append(acc)
         return res
 
-    def get_next(w):
+    def get_next(w) -> int:
         accw = accomulate_weights(w)
         r = random.randint(0, accw[-1] - 1)
         for i, w in enumerate(accw):
             if r < w:
                 return i
+        raise ValueError
 
     res = []
     for _ in range(k):
@@ -80,7 +81,7 @@ def get_choices(weights: List[int], k: int) -> List[int]:
 
 def preferential_attachment_simulation(persons: int, ring_order: int,
                                        message_list: List[int],
-                                       message_weight: List[int]=100) -> List[List[int]]:
+                                       message_weight: int=100) -> List[List[int]]:
     """
         Simulates the forum aproach using a weighted choice
         :param persons -> int: the number of people in the forum.

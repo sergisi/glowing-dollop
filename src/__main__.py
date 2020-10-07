@@ -7,6 +7,7 @@ from collections import Counter
 
 import argparse
 
+
 def probability(num_people, k, messages, num_loop, simulation):
     for i in range(num_loop):
         random.seed(i)
@@ -41,15 +42,16 @@ def gen(k_range, s, simulation, out_file):
 
 def show_average(k_range, s_range, simulation, prefix):
     for s in s_range:
-        with open(f'{prefix}{int(s*10)}.tex', 'w') as out_file:
+        with open(f'{prefix}{int(s * 10)}.tex', 'w') as out_file:
             print(r'\begin{table}[H]', file=out_file)
             print(r'\centering', file=out_file)
             print(r'\begin{tabular}{c|ccc}', file=out_file)
             print(r'K &1msm &5msm &15msm\\', file=out_file)
             print(r'\hline', file=out_file)
             values = map(lambda x: x / len(k_range), reduce(lambda x, y: (x[0] + y[0], x[1] + y[1], x[2] + y[2]),
-                                                 gen(k_range, s, simulation, out_file)))
-            print('& ' + ' & '.join(str(list(map(lambda x: round(x, 4), values)))[1:-1].split(', ')) + r'\\', file=out_file)
+                                                            gen(k_range, s, simulation, out_file)))
+            print('& ' + ' & '.join(str(list(map(lambda x: round(x, 4), values)))[1:-1].split(', ')) + r'\\',
+                  file=out_file)
             print(r'\end{tabular}', file=out_file)
             simulation_name = simulation.__name__.replace("_", " ")
             print(r'\caption{Simulation method:'f'{simulation_name} S:{s}' + r'}', file=out_file)
@@ -67,6 +69,7 @@ def parse_arguments():
     parser.add_argument(f'-kmax', f'--k-max-set', dest=f'kmax',
                         type=int, default=13, help=f'Maximum range of set')
     return parser.parse_args()
+
 
 def main():
     parser = parse_arguments()
