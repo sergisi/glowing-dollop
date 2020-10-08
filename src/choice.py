@@ -38,7 +38,7 @@ class PreferentialAttachmentSim(Choice):
         super().__init__(persons, ring_order, message_list)
         self.message_weight = message_weight
 
-    def __accomulate_weights(self, weigth_list) -> List[int]:
+    def _accumulate_weights(self, weigth_list) -> List[int]:
         res = []
         acc = 0
         for i in weigth_list:
@@ -46,15 +46,15 @@ class PreferentialAttachmentSim(Choice):
             res.append(acc)
         return res
 
-    def __get_elem(self, weights) -> int:
-        accw = self.__accomulate_weights(weights)
+    def _get_elem(self, weights) -> int:
+        accw = self._accumulate_weights(weights)
         r = random.randint(0, accw[-1] - 1)
         for i, w in enumerate(accw):
             if r < w:
                 return i
         raise ValueError
 
-    def __get_subset_pool(self, weights: List[int], k: int) -> List[int]:
+    def _get_subset_pool(self, weights: List[int], k: int) -> List[int]:
         """
             Gets a weighted list choice given a list of weights
             and a number to be taken.
@@ -74,7 +74,7 @@ class PreferentialAttachmentSim(Choice):
         """
         res = []
         for _ in range(k):
-            n = self.__get_elem(weights)
+            n = self._get_elem(weights)
             res.append(n)
             weights[n] = 0
         return res
@@ -85,18 +85,26 @@ class PreferentialAttachmentSim(Choice):
         for msg in self.message_list:
             w = list(weights)
             w[msg] = 0
-            actual = self.__get_subset_pool(w, self.ring_order - 1)
+            actual = self._get_subset_pool(w, self.ring_order - 1)
             actual.append(msg)
             result.append(actual)
             for i in actual:
                 weights[i] += self.message_weight
         return result
 
+class PAttachCompensatedWeight(PreferentialAttachmentSim):
 
-if __name__ == "__main__":
-    sim = PreferentialAttachmentSim(40, 4, [1, 2, 3])
-    print(sim.apply())
+    def __init__(self, persons: int, ring_order: int, message_list: List[int], message_weight: int = 100):
+        super().__init__(persons, ring_order, message_list, message_weight)
 
+
+    def _accumulate_weights(self, weigth_list) -> List[int]:
+        res = []
+        acc = 0
+        for i in weigth_list:
+            acc += i
+            res.append(acc)
+        return res
 
 class AbstractFactoryChoice:
 
@@ -161,3 +169,8 @@ class PAttachBuilder(ChoiceBuilder):
         if self.persons is None or self.ring_order is None or self.message_list is None or self.weight is None:
             raise ValueError
         return PreferentialAttachmentSim(self.persons, self.ring_order, self.message_list, self.weight)
+
+if __name__ == "__main__":
+    sim = PreferentialAttachmentSim(40, 4, [1, 2, 3])
+    print(sim.apply())
+

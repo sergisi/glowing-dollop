@@ -4,8 +4,8 @@ import random
 
 class Simulation:
 
-    def __init__(self, persons: int, ring_order: int, weight: int):
-        self.builder = PAttachBuilder().set_persons(persons).set_ring_order(ring_order).set_weight(weight)
+    def __init__(self, persons: int, ring_order: int, weight: int, builder: ChoiceBuilder):
+        self.builder = builder.set_persons(persons).set_ring_order(ring_order).set_weight(weight)
         self.list_msgs = None
 
     def simulate(self, distribution: Distribution):
@@ -15,10 +15,13 @@ class Simulation:
         choice = self.builder.build()
         return choice.apply()
 
-if __name__ == "__main__":
+def main():
     persons, ring_order, max_msg = 200, 4, 15
-    simulation: Simulation = Simulation(persons, ring_order, 100)
+    simulation: Simulation = Simulation(persons, ring_order, 100, PAttachBuilder())
     zipf: Zipf = Zipf(persons, max_msg, 1.3)
     first_signatures = simulation.simulate(zipf)[:10]
     print(first_signatures)
+
+if __name__ == "__main__":
+    main()
     

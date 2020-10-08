@@ -61,7 +61,7 @@ class PrivacityScorer:
                 for i in range(self.persons)]
 
 
-if __name__ == "__main__":
+def main():
     persons, ring_order, max_msg = 200, 4, 15
     simulation: Simulation = Simulation(persons, ring_order, 200)
     zipf: Zipf = Zipf(persons, max_msg, 1.3)
@@ -73,3 +73,6 @@ if __name__ == "__main__":
     maximum = max(get_scores(signature), key = lambda x: x[1])
     minimum = min(get_scores(signature), key = lambda x: x[1])
     print(maximum, minimum)
+
+if __name__ == "__main__":
+    main()
