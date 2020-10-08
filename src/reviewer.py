@@ -2,7 +2,7 @@ from scorer import PrivacityScorer
 from typing import List
 from simulation import Simulation
 from distribution import Zipf
-from choice import PAttachBuilder
+from choices.patterns import PAttachBuilder
 
 class Reviewer:
 
@@ -20,7 +20,7 @@ class Reviewer:
             return "OK"
 
 def main():
-    persons, ring_order, max_msg = 200, 4, 15
+    persons, ring_order, max_msg = 200, 12, 15
     for w in [e  for e in range(3)]:
         simulation: Simulation = Simulation(persons, ring_order, w, PAttachBuilder())
         zipf: Zipf = Zipf(persons, max_msg, 1.3)

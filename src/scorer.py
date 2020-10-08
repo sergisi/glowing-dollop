@@ -1,7 +1,7 @@
 from typing import List
 from distribution import Zipf
 from simulation import Simulation
-from choice import PAttachBuilder
+from choices.patterns import PAttachBuilder
 from functools import reduce
 from collections import Counter
 
@@ -63,7 +63,7 @@ class PrivacityScorer:
 
 def main():
     persons, ring_order, max_msg = 200, 4, 15
-    simulation: Simulation = Simulation(persons, ring_order, 200)
+    simulation: Simulation = Simulation(persons, ring_order, 200, PAttachBuilder)
     zipf: Zipf = Zipf(persons, max_msg, 1.3)
     signature = simulation.simulate(zipf)
     print(signature[:10])

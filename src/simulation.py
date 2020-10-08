@@ -1,4 +1,5 @@
-from choice import Choice, PreferentialAttachmentSim, ChoiceBuilder, PAttachBuilder
+from choices import Choice, PreferentialAttachmentSim
+from choices.patterns import ChoiceBuilder, PAttachBuilder
 from distribution import Distribution, Zipf
 import random
 
