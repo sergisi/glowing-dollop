@@ -22,6 +22,10 @@ class Choice(ABC):
 class UniformSim(Choice):
 
     def apply(self):
+        """
+        Takes a random number of k elements in order to sign the message.
+        :return:
+        """
         result = []
         choices = {i for i in range(self.persons)}
         for msg in self.message_list:
@@ -80,6 +84,10 @@ class PreferentialAttachmentSim(Choice):
         return res
 
     def apply(self):
+        """
+        For every message in the list, puts the list of the weights at 0
+        :return:
+        """
         result = []
         weights = [1] * self.persons
         for msg in self.message_list:
@@ -88,5 +96,6 @@ class PreferentialAttachmentSim(Choice):
             actual = self._get_subset_pool(w, self.ring_order - 1)
             actual.append(msg)
             result.append(actual)
-            weights[i] += self.message_weight
+            for i in actual:
+                weights[i] += self.message_weight
         return result

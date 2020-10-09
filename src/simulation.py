@@ -5,8 +5,8 @@ import random
 
 class Simulation:
 
-    def __init__(self, persons: int, ring_order: int, weight: int, builder: ChoiceBuilder):
-        self.builder = builder.set_persons(persons).set_ring_order(ring_order).set_weight(weight)
+    def __init__(self, persons: int, ring_order: int, builder: ChoiceBuilder):
+        self.builder = builder.set_persons(persons).set_ring_order(ring_order)
         self.list_msgs = None
 
     def simulate(self, distribution: Distribution):

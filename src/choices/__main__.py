@@ -1,4 +1,4 @@
-from . import PreferentialAttachmentSim
+from choices import PreferentialAttachmentSim
 
 if __name__ == "__main__":
     sim = PreferentialAttachmentSim(40, 4, [1, 2, 3])

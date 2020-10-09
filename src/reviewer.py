@@ -2,7 +2,7 @@ from scorer import PrivacityScorer
 from typing import List
 from simulation import Simulation
 from distribution import Zipf
-from choices.patterns import PAttachBuilder
+from choices.patterns import PAttachBuilder, UniformBuilder
 
 class Reviewer:
 
@@ -19,14 +19,24 @@ class Reviewer:
         else:
             return "OK"
 
-def main():
+def test(choice_builder, persons, ring_order, max_msg, w):
+    choice_builder = choice_builder.reset()
+    if isinstance(choice_builder,PAttachBuilder):
+        choice_builder.set_weight(w)
+    simulation: Simulation = Simulation(persons, ring_order, choice_builder)
+    zipf: Zipf = Zipf(persons, max_msg, 1.3)
+    signature = simulation.simulate(zipf)
+    reviewer = Reviewer(signature, PrivacityScorer(persons))
+    print(w, reviewer.review(simulation.list_msgs))
+
+def test_loop(choice_builder):
     persons, ring_order, max_msg = 200, 12, 15
     for w in [e  for e in range(3)]:
-        simulation: Simulation = Simulation(persons, ring_order, w, PAttachBuilder())
-        zipf: Zipf = Zipf(persons, max_msg, 1.3)
-        signature = simulation.simulate(zipf)
-        reviewer = Reviewer(signature, PrivacityScorer(persons))
-        print(w, reviewer.review(simulation.list_msgs))
+        test(choice_builder, persons, ring_order, max_msg, w)
+
+def main():
+    test_loop(UniformBuilder())
+    test_loop(PAttachBuilder().set_weight(1))
 
 if __name__ == "__main__":
     main()
