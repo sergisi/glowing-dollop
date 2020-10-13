@@ -1,13 +1,6 @@
-import random
-import sys
-import simulator as sim
-import distribution as distribution
-from functools import reduce
-from collections import Counter
-
-import argparse
 
 
+"""
 def probability(num_people, k, messages, num_loop, simulation):
     for i in range(num_loop):
         random.seed(i)
@@ -78,7 +71,32 @@ def main():
     show_average(k_range, s_range, sim.preferential_attachment_simulation, 'doc/tab/prefatach/')
     show_average(k_range, s_range, sim.uniform_simulation, 'doc/tab/uniform/')
     sys.exit()
+"""
+
+
+def simulation_main():
+    print("========== Simulation main ==========")
+    sim.main()
+
+
+def scorer_main():
+    print("========== Scorer main ==========")
+    sc.main()
+
+
+def reviewer_main():
+    print("========== Reviewer main ==========")
+    rv.main()
+
+
+def distribution_main():
+    print("========== Distribution main ==========")
+    ds.main()
 
 
 if __name__ == '__main__':
-    main()
+    from . import simulation as sim, scorer as sc, reviewer as rv, distribution as ds
+    simulation_main()
+    scorer_main()
+    reviewer_main()
+    distribution_main()

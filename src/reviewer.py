@@ -1,8 +1,8 @@
-from scorer import UnlinkabilityScorer as Scorer
+from src.scorer import UnlinkabilityScorer as Scorer
 from typing import List
-from simulation import Simulation
-from distribution import Zipf
-from choices.patterns import PAttachBuilder, UniformBuilder
+from src.simulation import Simulation
+from src.distribution import Zipf
+from src.choices.patterns import PAttachBuilder, UniformBuilder
 
 
 class Reviewer:

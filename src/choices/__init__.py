@@ -15,13 +15,13 @@ class Choice(ABC):
         self.message_list = message_list
 
     @abstractmethod
-    def apply(self):
+    def apply(self) -> List[List[int]]:
         pass
 
 
 class UniformSim(Choice):
 
-    def apply(self):
+    def apply(self) -> List[List[int]]:
         """
         Takes a random number of k elements in order to sign the message.
         :return:

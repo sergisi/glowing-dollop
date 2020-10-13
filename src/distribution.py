@@ -85,7 +85,10 @@ def zipf(persons: int,
             current_person += 1
     return messages
 
-
-if __name__ == "__main__":
+def main():
     zipf = Zipf(200, 15, 1.3)
     print(zipf.messages())
+
+
+if __name__ == "__main__":
+    main()

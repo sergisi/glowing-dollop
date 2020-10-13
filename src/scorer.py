@@ -1,7 +1,7 @@
 from typing import List
-from distribution import Zipf
-from simulation import Simulation
-from choices.patterns import PAttachBuilder
+from src.distribution import Zipf
+from src.simulation import Simulation
+from src.choices.patterns import PAttachBuilder
 from functools import reduce
 from collections import Counter
 

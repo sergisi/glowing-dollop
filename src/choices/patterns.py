@@ -1,5 +1,5 @@
 from __future__ import annotations
-from src.choices import UniformSim, PreferentialAttachmentSim
+from src.choices import Choice, UniformSim, PreferentialAttachmentSim
 from typing import List
 from abc import ABC, abstractmethod
 
