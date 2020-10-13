@@ -1,7 +1,8 @@
 from __future__ import annotations
-from choices import UniformSim, PreferentialAttachmentSim
+from src.choices import UniformSim, PreferentialAttachmentSim
 from typing import List
 from abc import ABC, abstractmethod
+
 
 class AbstractFactoryChoice:
 
@@ -38,9 +39,10 @@ class ChoiceBuilder(ABC):
     @abstractmethod
     def build(self) -> Choice:
         pass
-    
+
+
 class UniformBuilder(ChoiceBuilder):
-    
+
     def __init__(self):
         super().__init__()
         self.message_list = None
@@ -52,7 +54,7 @@ class UniformBuilder(ChoiceBuilder):
             self.persons = persons
             return self
         raise EnvironmentError
-    
+
     def set_ring_order(self, ring_order: int) -> PAttachBuilder:
         if self.ring_order is None:
             self.ring_order = ring_order
@@ -71,6 +73,7 @@ class UniformBuilder(ChoiceBuilder):
     def build(self) -> Choice:
         return UniformSim(self.persons, self.ring_order, self.message_list)
 
+
 class PAttachBuilder(ChoiceBuilder):
 
     def __init__(self):
@@ -80,13 +83,12 @@ class PAttachBuilder(ChoiceBuilder):
         self.message_list = None
         self.weight = None
 
-
     def set_persons(self, persons) -> PAttachBuilder:
         if self.persons is None:
             self.persons = persons
             return self
         raise EnvironmentError
-    
+
     def set_ring_order(self, ring_order: int) -> PAttachBuilder:
         if self.ring_order is None:
             self.ring_order = ring_order
@@ -104,7 +106,7 @@ class PAttachBuilder(ChoiceBuilder):
             self.weight = weight
             return self
         raise EnvironmentError
-    
+
     def reset(self):
         return PAttachBuilder()
 

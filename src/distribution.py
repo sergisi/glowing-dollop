@@ -17,6 +17,16 @@ class Distribution(ABC):
         pass
 
 
+class UniformDistribution(Distribution):
+
+    def __init__(self, persons: int):
+        super().__init__(persons)
+
+    def messages(self):
+        """import random
+        return random.sample(list(range(self.persons)), k=self.persons)"""
+        return list(range(self.persons))
+
 class Zipf(Distribution):
 
     def __init__(self, persons: int, max_msg: int, s: float):

@@ -1,30 +1,25 @@
 import unittest
-import src.simulator as sim
-
+from src.simulation import Simulation 
+from src.choices.patterns import UniformBuilder
+from src.distribution import Distribution, UniformDistribution
+from functools import reduce
 
 class MyTestCase(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.person = 10
+        self.persons = 10
         self.ring_order = 4
-        self.messages_list = [1, 3, 4]
-
-    def test_raise_exception_simulation(self):
-        with self.assertRaises(ValueError):
-            sim.uniform_simulation(10, 11, [3])
-        with self.assertRaises(ValueError):
-            sim.preferential_attachment_simulation(10, 11, [3])
+        self.distribution = UniformDistribution(self.persons)
+        self.simulation = Simulation(self.persons, self.ring_order, UniformBuilder())
 
     def test_simulation_first(self):
-        for person, mset in zip(self.messages_list,
-                                sim.uniform_simulation(self.person, self.ring_order, self.messages_list)):
-            self.assertIn(person, mset)
+        pass
 
     def test_simulation(self):
-        for person, mset in zip(self.messages_list,
-                                sim.preferential_attachment_simulation(self.person, self.ring_order, self.messages_list)):
-            self.assertIn(person, mset)
-
+        signs = self.simulation.simulate(self.distribution)
+        for i in range(self.persons):
+            self.assertIn(i , reduce(set.union, map(set, signs)))
+"""
     def test_ring_order_in_choices(self):
         or_weights = [20, 30, 40, 20]
         weights = or_weights.copy()
@@ -52,3 +47,4 @@ class MyTestCase(unittest.TestCase):
             self.assertNotEqual(0, prob[p])
         for nm in set(range(8)) - set(messages):
             self.assertEqual(0, prob[nm])
+"""

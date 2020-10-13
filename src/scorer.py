@@ -5,7 +5,8 @@ from choices.patterns import PAttachBuilder
 from functools import reduce
 from collections import Counter
 
-class PrivacityScorer:
+
+class UnlinkabilityScorer:
 
     def __init__(self, persons: int):
         self.persons = persons
@@ -26,7 +27,6 @@ class PrivacityScorer:
                 res[person] += 1
         return res
 
-
     def __get_messagecount(self, message_list: List[int]) -> List[int]:
         """
             Parses a message_list and counts the number of messages send by a     
@@ -35,7 +35,6 @@ class PrivacityScorer:
         for i in message_list:
             msgcount[i] += 1
         return msgcount
-
 
     def get_scores(self, message_list: List[int], signatures: List[List[int]]):
         """
@@ -63,16 +62,21 @@ class PrivacityScorer:
 
 def main():
     persons, ring_order, max_msg = 200, 4, 15
-    simulation: Simulation = Simulation(persons, ring_order, 200, PAttachBuilder)
+    simulation: Simulation = Simulation(
+        persons, ring_order, PAttachBuilder().set_weight(1))
     zipf: Zipf = Zipf(persons, max_msg, 1.3)
     signature = simulation.simulate(zipf)
     print(signature[:10])
-    scores = PrivacityScorer(persons).get_scores(simulation.list_msgs, signature)
-    get_scores = lambda xs: [(elem, scores[elem]) for elem in reduce(lambda x, y: x.union(y),map(lambda x: set(x), xs))]
+    scores = UnlinkabilityScorer(persons).get_scores(
+        simulation.list_msgs, signature)
+
+    def get_scores(xs): return [(elem, scores[elem]) for elem in reduce(
+        lambda x, y: x.union(y), map(lambda x: set(x), xs))]
     print(get_scores(signature))
-    maximum = max(get_scores(signature), key = lambda x: x[1])
-    minimum = min(get_scores(signature), key = lambda x: x[1])
+    maximum = max(get_scores(signature), key=lambda x: x[1])
+    minimum = min(get_scores(signature), key=lambda x: x[1])
     print(maximum, minimum)
+
 
 if __name__ == "__main__":
     main()

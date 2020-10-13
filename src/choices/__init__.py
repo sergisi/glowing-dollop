@@ -83,7 +83,7 @@ class PreferentialAttachmentSim(Choice):
             weights[n] = 0
         return res
 
-    def apply(self):
+    def apply(self) -> List[List[int]]:
         """
         For every message in the list, puts the list of the weights at 0
         :return:
@@ -99,3 +99,9 @@ class PreferentialAttachmentSim(Choice):
             for i in actual:
                 weights[i] += self.message_weight
         return result
+
+class Sim(Choice):
+
+    def __init__(self, persons: int, ring_order: int, message_list: List[int], message_weight: int):
+        super().__init__(persons, ring_order, message_list)
+        self.message_list = message_list
