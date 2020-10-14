@@ -1,5 +1,3 @@
-
-
 """
 def probability(num_people, k, messages, num_loop, simulation):
     for i in range(num_loop):
@@ -75,28 +73,35 @@ def main():
 
 
 def simulation_main():
+    from . import simulation as sim
     print("========== Simulation main ==========")
     sim.main()
 
 
 def scorer_main():
+    from . import scorer as sc
     print("========== Scorer main ==========")
     sc.main()
 
 
 def reviewer_main():
+    from . import reviewer as rv
     print("========== Reviewer main ==========")
     rv.main()
 
 
 def distribution_main():
+    from . import distribution as ds
     print("========== Distribution main ==========")
     ds.main()
 
 
-if __name__ == '__main__':
-    from . import simulation as sim, scorer as sc, reviewer as rv, distribution as ds
-    simulation_main()
-    scorer_main()
+def main():
+    #simulation_main()
+    #scorer_main()
     reviewer_main()
-    distribution_main()
+    #distribution_main()
+
+
+if __name__ == '__main__':
+    main()

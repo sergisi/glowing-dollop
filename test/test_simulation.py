@@ -1,8 +1,9 @@
 import unittest
-from src.simulation import Simulation 
+from src.simulation import Simulation
 from src.choices.patterns import UniformBuilder
 from src.distribution import Distribution, UniformDistribution
 from functools import reduce
+
 
 class MyTestCase(unittest.TestCase):
 
@@ -18,7 +19,9 @@ class MyTestCase(unittest.TestCase):
     def test_simulation(self):
         signs = self.simulation.simulate(self.distribution)
         for i in range(self.persons):
-            self.assertIn(i , reduce(set.union, map(set, signs)))
+            self.assertIn(i, reduce(set.union, map(set, signs)))
+
+
 """
     def test_ring_order_in_choices(self):
         or_weights = [20, 30, 40, 20]

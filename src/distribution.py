@@ -27,6 +27,7 @@ class UniformDistribution(Distribution):
         return random.sample(list(range(self.persons)), k=self.persons)"""
         return list(range(self.persons))
 
+
 class Zipf(Distribution):
 
     def __init__(self, persons: int, max_msg: int, s: float):
@@ -49,10 +50,12 @@ class Zipf(Distribution):
 
     def messages(self):
         if self.msgs is None:
-            def prob_msm(x): return 1 / (x ** self.s)
+            def prob_msm(x):
+                return 1 / (x ** self.s)
+
             total = sum(prob_msm(y) for y in range(1, self.max_msg + 1))
             number_persons = [prob_msm(x) * self.persons / total
-                            for x in range(1, self.max_msg + 1)]
+                              for x in range(1, self.max_msg + 1)]
             # import pdb; pdb.set_trace()
             number_persons = self.correct_msm(number_persons, self.persons)
             messages: List[int] = []
@@ -84,6 +87,7 @@ def zipf(persons: int,
                 messages.append(current_person)
             current_person += 1
     return messages
+
 
 def main():
     zipf = Zipf(200, 15, 1.3)

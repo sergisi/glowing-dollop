@@ -72,6 +72,7 @@ def main():
 
     def get_scores(xs): return [(elem, scores[elem]) for elem in reduce(
         lambda x, y: x.union(y), map(lambda x: set(x), xs))]
+
     print(get_scores(signature))
     maximum = max(get_scores(signature), key=lambda x: x[1])
     minimum = min(get_scores(signature), key=lambda x: x[1])

@@ -5,8 +5,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-
-
 def show_dist(msgs):
     people = count_people(msgs)
     fig, ax = plt.subplots()
@@ -16,6 +14,7 @@ def show_dist(msgs):
     ax.set_title(f'Histogram of s: {s}')
     fig.tight_layout()
     plt.savefig(f'histogram-{s}.png')
+
 
 def count_people(msgs):
     counter = Counter(msgs).most_common()
