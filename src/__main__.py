@@ -98,8 +98,8 @@ def distribution_main():
 
 def main():
     #simulation_main()
-    #scorer_main()
-    reviewer_main()
+    scorer_main()
+    #reviewer_main()
     #distribution_main()
 
 

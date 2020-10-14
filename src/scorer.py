@@ -1,7 +1,7 @@
 from typing import List
 from src.distribution import Zipf
 from src.simulation import Simulation
-from src.choices.patterns import PAttachBuilder
+from src.choices.patterns import PAttachBuilder, UniquePAttachBuilder, UniformBuilder
 from functools import reduce
 from collections import Counter
 
@@ -60,10 +60,8 @@ class UnlinkabilityScorer:
                 for i in range(self.persons)]
 
 
-def main():
-    persons, ring_order, max_msg = 200, 4, 15
-    simulation: Simulation = Simulation(
-        persons, ring_order, PAttachBuilder().set_weight(1))
+def test(builder, max_msg, persons, ring_order):
+    simulation: Simulation = Simulation(persons, ring_order, builder)
     zipf: Zipf = Zipf(persons, max_msg, 1.3)
     signature = simulation.simulate(zipf)
     print(signature[:10])
@@ -77,6 +75,13 @@ def main():
     maximum = max(get_scores(signature), key=lambda x: x[1])
     minimum = min(get_scores(signature), key=lambda x: x[1])
     print(maximum, minimum)
+
+
+def main():
+    persons, ring_order, max_msg = 200, 4, 15
+    test(PAttachBuilder().set_weight(1), max_msg, persons, ring_order)
+    test(UniquePAttachBuilder().set_weight(1), max_msg, persons, ring_order)
+    test(UniformBuilder(), max_msg, persons, ring_order)
 
 
 if __name__ == "__main__":
