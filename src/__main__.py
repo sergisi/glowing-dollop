@@ -96,11 +96,17 @@ def distribution_main():
     ds.main()
 
 
+def anonymity_main():
+    from . import anonymity as an
+    print("========== Distribution main ==========")
+    an.main()
+
 def main():
     #simulation_main()
-    scorer_main()
-    #reviewer_main()
+    #scorer_main()
+    reviewer_main()
     #distribution_main()
+    #anonymity_main()
 
 
 if __name__ == '__main__':

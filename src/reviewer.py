@@ -25,9 +25,7 @@ class Reviewer:
 
 def test(choice_builder, persons, ring_order, max_msg, w):
     choice_builder = choice_builder.reset()
-    if isinstance(choice_builder, PAttachBuilder):
-        choice_builder.set_weight(w)
-    if isinstance(choice_builder, UniquePAttachBuilder):
+    if isinstance(choice_builder, WeightBuilder):
         choice_builder.set_weight(w)
     simulation: Simulation = Simulation(persons, ring_order, choice_builder)
     zipf: Zipf = Zipf(persons, max_msg, 1.3)
@@ -43,10 +41,15 @@ def test_loop(choice_builder):
 
 
 def main():
+    """
     test_loop(UniformBuilder())
     test_loop(PAttachBuilder().set_weight(1))
     test_loop(UniquePAttachBuilder().set_weight(1))
     test_loop(UniquePAttachBuilder().set_weight(2))
+    """
+    test_loop(ThresholdBuilder().set_weight(1))
+    test_loop(ThresholdBuilder().set_weight(2))
+
 
 
 if __name__ == "__main__":
