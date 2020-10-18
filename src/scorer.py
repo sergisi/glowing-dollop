@@ -1,27 +1,27 @@
 from typing import List
 from src.distribution import Zipf
 from src.simulation import Simulation
-from src.choices.patterns import PAttachBuilder, UniquePAttachBuilder, UniformBuilder
+from src.choices.patterns import *
 from functools import reduce
 from collections import Counter
 
 
 class UnlinkabilityScorer:
 
-    def __init__(self, persons: int):
-        self.persons = persons
+    def __init__(self, people: int):
+        self.people = people
 
     def __simulation_to_dictionary(self, signatures: List[List[int]]) -> List[int]:
         """
         Parses a result of a simulations to a 
         List of integers, where the nth position is the 
         number of messages that this person has signed.
-        :param persons -> int : number of persons in the simulation
+        :param people -> int : number of people in the simulation
         :param signatures -> List[List[int]] : result of a simulation
         :return List[int] : the nth position is the number 
             of messages that the nth persone has signed
         """
-        res = [0] * self.persons
+        res = [0] * self.people
         for ls in signatures:
             for person in ls:
                 res[person] += 1
@@ -31,7 +31,7 @@ class UnlinkabilityScorer:
         """
             Parses a message_list and counts the number of messages send by a     
         """
-        msgcount = [0] * self.persons
+        msgcount = [0] * self.people
         for i in message_list:
             msgcount[i] += 1
         return msgcount
@@ -57,15 +57,15 @@ class UnlinkabilityScorer:
         sim = self.__simulation_to_dictionary(signatures)
         msgcount = self.__get_messagecount(message_list)
         return [sim[i] / msgcount[i] if msgcount[i] != 0 else 0
-                for i in range(self.persons)]
+                for i in range(self.people)]
 
 
-def test(builder, max_msg, persons, ring_order):
-    simulation: Simulation = Simulation(persons, ring_order, builder)
-    zipf: Zipf = Zipf(persons, max_msg, 1.3)
+def test(builder, max_msg, people, ring_order, s=1.3):
+    simulation: Simulation = Simulation(people, ring_order, builder)
+    zipf: Zipf = Zipf(people, max_msg, s)
     signature = simulation.simulate(zipf)
     print(signature[:10])
-    scores = UnlinkabilityScorer(persons).get_scores(
+    scores = UnlinkabilityScorer(people).get_scores(
         simulation.list_msgs, signature)
 
     def get_scores(xs): return [(elem, scores[elem]) for elem in reduce(
@@ -78,10 +78,13 @@ def test(builder, max_msg, persons, ring_order):
 
 
 def main():
-    persons, ring_order, max_msg = 200, 4, 15
-    test(PAttachBuilder().set_weight(1), max_msg, persons, ring_order)
-    test(UniquePAttachBuilder().set_weight(1), max_msg, persons, ring_order)
-    test(UniformBuilder(), max_msg, persons, ring_order)
+    people, ring_order, max_msg = 200, 6, 15
+    #test(PAttachBuilder().set_weight(1), max_msg, people, ring_order)
+    #test(UniquePAttachBuilder().set_weight(1), max_msg, people, ring_order)
+    #test(UniformBuilder(), max_msg, people, ring_order)
+    test(ThresholdBuilder().set_weight(1),max_msg, people, ring_order)
+    test(ThresholdBuilder().set_weight(2),max_msg, people, ring_order)
+    test(ThresholdBuilder().set_weight(2),max_msg, people, ring_order)
 
 
 if __name__ == "__main__":

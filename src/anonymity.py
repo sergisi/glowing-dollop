@@ -8,6 +8,10 @@ def calc(acc, len_msgs, k, people):
 
 
 def calculate(msgs: int, k: int, people: int):
+    """
+    It calculates the perfect anonymity in an uniform distribution,
+    having an constant anonymity for all participants of the distribution.
+    """
     res = msgs / people
     return res + calc(res, msgs, k - 1, people - 1)
 

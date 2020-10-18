@@ -23,21 +23,21 @@ class Reviewer:
             return "OK"
 
 
-def test(choice_builder, persons, ring_order, max_msg, w):
+def test(choice_builder, people, ring_order, max_msg, w, s=1.3):
     choice_builder = choice_builder.reset()
     if isinstance(choice_builder, WeightBuilder):
         choice_builder.set_weight(w)
-    simulation: Simulation = Simulation(persons, ring_order, choice_builder)
-    zipf: Zipf = Zipf(persons, max_msg, 1.3)
+    simulation: Simulation = Simulation(people, ring_order, choice_builder)
+    zipf: Zipf = Zipf(people, max_msg, s)
     signature = simulation.simulate(zipf)
-    reviewer = Reviewer(signature, Scorer(persons))
+    reviewer = Reviewer(signature, Scorer(people))
     print(w, reviewer.review(simulation.list_msgs))
 
 
 def test_loop(choice_builder):
-    persons, ring_order, max_msg = 200, 12, 15
+    people, ring_order, max_msg = 200, 12, 15
     for w in [e for e in range(3)]:
-        test(choice_builder, persons, ring_order, max_msg, w)
+        test(choice_builder, people, ring_order, max_msg, w)
 
 
 def main():

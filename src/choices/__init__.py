@@ -197,9 +197,15 @@ class ThresholdSim(Choice):
         return res
 
     def is_under_threshold(self, i):
-        #print(self.author_msgs[r], 1)
-        return (self.signatures[i] / max(self.author_msgs[i], 1)) < (self.threshold + 0.5)        
+        return (self.signatures[i] / max(self.author_msgs[i], 1)) <= (self.threshold)       
             
+    def _find_ball(self, r, accw):
+        for i, w in enumerate(accw):
+            if r < w:
+                if self.is_under_threshold(i):
+                    return i
+                else:
+                    return None
 
     def _get_elem(self, weights) -> int:
         """
@@ -211,14 +217,8 @@ class ThresholdSim(Choice):
         r = None
         while r is None:
             r = random.randint(0, accw[-1] - 1)
-            for i, w in enumerate(accw):
-                if r < w:
-                    if self.is_under_threshold(i):
-                        return i
-                    else:
-                        r = None
-                        break
-        raise ValueError
+            r = self._find_ball(r, accw)
+        return r
 
     def _get_subset_pool(self, weights: List[int], k: int) -> List[int]:
         """

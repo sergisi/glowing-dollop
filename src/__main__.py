@@ -101,12 +101,34 @@ def anonymity_main():
     print("========== Distribution main ==========")
     an.main()
 
+
 def main():
-    #simulation_main()
-    #scorer_main()
+    from . import reviewer as rv
+    from . import scorer as sc
+    from . import distribution as ds
+    from . import simulation as sim
+    from . import anonymity as an
+    from .choices.patterns import ThresholdBuilder
+    people = 10
+    max_msgs = 4
+    s = 1.4
+    ring_order = 6
+    weight=1
+    simulation: sim.Simulation = sim.Simulation(people, ring_order, ThresholdBuilder().set_weight(weight))
+    zipf: ds.Zipf = ds.Zipf(people, max_msgs, s)
+    signature = simulation.simulate(zipf)
+    scorer = sc.UnlinkabilityScorer(people)
+    print("Anonymity:", an.calculate(len(simulation.list_msgs), ring_order, people))
+    print(scorer.get_scores(simulation.list_msgs, signature))
+    reviewer = rv.Reviewer(signature, scorer)
+    print(reviewer.review(simulation.list_msgs))
+    """
+    simulation_main()
+    scorer_main()
     reviewer_main()
-    #distribution_main()
-    #anonymity_main()
+    distribution_main()
+    anonymity_main()
+    """
 
 
 if __name__ == '__main__':
