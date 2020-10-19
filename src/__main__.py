@@ -101,15 +101,14 @@ def anonymity_main():
     print("========== Distribution main ==========")
     an.main()
 
-
-def main():
+def threshold_main():
     from . import reviewer as rv
     from . import scorer as sc
     from . import distribution as ds
     from . import simulation as sim
     from . import anonymity as an
     from .choices.patterns import ThresholdBuilder
-    people = 10
+    people = 200
     max_msgs = 4
     s = 1.4
     ring_order = 6
@@ -122,6 +121,32 @@ def main():
     print(scorer.get_scores(simulation.list_msgs, signature))
     reviewer = rv.Reviewer(signature, scorer)
     print(reviewer.review(simulation.list_msgs))
+
+def incremental_main():
+    from . import reviewer as rv
+    from . import scorer as sc
+    from . import distribution as ds
+    from . import simulation as sim
+    from . import anonymity as an
+    from .choices.patterns import IncWeightBuilder
+    people = 200
+    max_msgs = 4
+    s = 1.4
+    ring_order = 6
+    min_weight=1
+    max_weight=3
+    simulation: sim.Simulation = sim.Simulation(people, ring_order, IncWeightBuilder().set_min_weight(min_weight).set_max_weight(max_weight).set_p(0.3))
+    zipf: ds.Zipf = ds.Zipf(people, max_msgs, s)
+    signature = simulation.simulate(zipf)
+    scorer = sc.UnlinkabilityScorer(people)
+    print("Anonymity:", an.calculate(len(simulation.list_msgs), ring_order, people))
+    print(scorer.get_scores(simulation.list_msgs, signature))
+    reviewer = rv.Reviewer(signature, scorer)
+    print(reviewer.review(simulation.list_msgs))
+
+def main():
+    #incremental_main()
+    threshold_main()
     """
     simulation_main()
     scorer_main()

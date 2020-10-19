@@ -203,3 +203,61 @@ class ThresholdBuilder(ChoiceBuilder, WeightBuilder):
         if self.persons is None or self.ring_order is None or self.message_list is None or self.weight is None:
             raise ValueError
         return ThresholdSim(self.persons, self.ring_order, self.message_list, self.weight)
+
+
+class IncWeightBuilder(ChoiceBuilder):
+
+    def __init__(self):
+        super().__init__()
+        self.persons = None
+        self.ring_order = None
+        self.message_list = None
+        self.min_weight = None
+        self.max_weight = None
+        self.p = None
+
+
+    def set_persons(self, persons) -> ChoiceBuilder:
+        if self.persons is None:
+            self.persons = persons
+            return self
+        raise EnvironmentError
+
+    def set_ring_order(self, ring_order: int) -> PAttachBuilder:
+        if self.ring_order is None:
+            self.ring_order = ring_order
+            return self
+        raise EnvironmentError
+
+    def set_message_list(self, message_list: List[int]) -> PAttachBuilder:
+        if self.message_list is None:
+            self.message_list = message_list
+            return self
+        raise EnvironmentError
+
+    def set_min_weight(self, weight) -> PAttachBuilder:
+        if self.min_weight is None:
+            self.min_weight = weight
+            return self
+        raise EnvironmentError
+
+
+    def set_max_weight(self, weight) -> PAttachBuilder:
+        if self.max_weight is None:
+            self.max_weight = weight
+            return self
+        raise EnvironmentError
+
+    def set_p(self, p) -> PAttachBuilder:
+        if self.p is None:
+            self.p = p
+            return self
+        raise EnvironmentError
+
+    def reset(self):
+        return IncWeightBuilder()
+
+    def build(self):
+        if self.persons is None or self.ring_order is None or self.message_list is None or self.min_weight is None or self.max_weight is None or self.p is None:
+            raise ValueError
+        return IncWeightPASim(self.persons, self.ring_order, self.message_list, self.min_weight, self.max_weight, self.p)
