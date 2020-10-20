@@ -1,5 +1,4 @@
-from src.scorer import UnlinkabilityScorer as Scorer
-from typing import List
+from src.analysis.scorer import UnlinkabilityScorer as Scorer
 from src.simulation import Simulation
 from src.distribution import Zipf
 from src.choices.patterns import *

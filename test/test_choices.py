@@ -28,11 +28,42 @@ class UniformTest(TemplateTest):
         self.check()
 
 
-class PreferentialAttachmentTest(TemplateTest):
+class WeightAfterMessageTest(TemplateTest):
 
     def setUp(self):
         super().setUp()
-        self.choice = PreferentialAttachmentSim(self.persons, self.ring_order, self.message_list)
+        self.choice = PreferentialAttachmentSim(self.persons, self.ring_order, [0], 1)
 
     def test(self):
-        self.check()
+        signatures = self.choice.apply()
+        self.assertIn(0, signatures[0])
+        for member in signatures[0]:
+            self.assertEqual(2, self.choice.weights[member], f"The weight of the participant {member} is not 2")
+
+
+class WeightAfter2MessagesAuthorTest(TemplateTest):
+
+    def setUp(self):
+        super().setUp()
+        self.choice = PreferentialAttachmentSim(self.persons, self.ring_order, [0, 0], 1)
+
+    def test(self):
+        signatures = self.choice.apply()
+        for signature in signatures:
+            self.assertIn(0, signature)
+        self.assertEqual(3, self.choice.weights[0])
+
+
+class WeightAfter2MessagesOthersTest(TemplateTest):
+
+    def setUp(self):
+        super().setUp()
+        self.choice = PreferentialAttachmentSim(4, 4, [0, 0], 1)
+
+    def test(self):
+        signatures = self.choice.apply()
+        for p in range(0, 4):
+            for signature in signatures:
+                self.assertIn(p, signature, f"{p} is not in signature {signature}")
+        for p in range(0, 4):
+            self.assertEqual(3, self.choice.weights[p], f"It failed member {p}")

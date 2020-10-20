@@ -1,20 +1,19 @@
-from src.choices.patterns import ChoiceBuilder, PAttachBuilder
-from .choices import Choice, PreferentialAttachmentSim
-from src.distribution import Distribution, Zipf
-import random
+from src.data import Context
+from src.distribution import Zipf
 
 
 class Simulation:
 
-    def __init__(self, persons: int, ring_order: int, builder: ChoiceBuilder):
-        self.builder = builder.set_persons(persons).set_ring_order(ring_order)
-        self.list_msgs = None
+    def __init__(self, context: Context):
+        self.context = context
+        self.msg_list = None
 
-    def simulate(self, distribution: Distribution):
-        self.list_msgs = distribution.messages()
-        self.list_msgs = random.sample(self.list_msgs, len(self.list_msgs))
-        self.builder.set_message_list(self.list_msgs)
-        choice = self.builder.build()
+    def simulate(self, seed=None):
+        import random
+        self.msg_list = self.context.distribution().messages()
+        random.seed(seed)
+        self.msg_list = random.sample(self.msg_list, len(self.msg_list))
+        choice = self.context.choice(self.msg_list)
         return choice.apply()
 
 

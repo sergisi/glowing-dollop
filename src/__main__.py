@@ -79,13 +79,13 @@ def simulation_main():
 
 
 def scorer_main():
-    from . import scorer as sc
+    from src.analysis import scorer as sc
     print("========== Scorer main ==========")
     sc.main()
 
 
 def reviewer_main():
-    from . import reviewer as rv
+    from src.analysis import reviewer as rv
     print("========== Reviewer main ==========")
     rv.main()
 
@@ -97,16 +97,16 @@ def distribution_main():
 
 
 def anonymity_main():
-    from . import anonymity as an
+    from src.analysis import anonymity as an
     print("========== Distribution main ==========")
     an.main()
 
 def threshold_main():
-    from . import reviewer as rv
-    from . import scorer as sc
+    from src.analysis import reviewer as rv
+    from src.analysis import scorer as sc
     from . import distribution as ds
     from . import simulation as sim
-    from . import anonymity as an
+    from src.analysis import anonymity as an
     from .choices.patterns import ThresholdBuilder
     people = 200
     max_msgs = 4
@@ -123,11 +123,11 @@ def threshold_main():
     print(reviewer.review(simulation.list_msgs))
 
 def incremental_main():
-    from . import reviewer as rv
-    from . import scorer as sc
+    from src.analysis import reviewer as rv
+    from src.analysis import scorer as sc
     from . import distribution as ds
     from . import simulation as sim
-    from . import anonymity as an
+    from src.analysis import anonymity as an
     from .choices.patterns import IncWeightBuilder
     people = 200
     max_msgs = 4

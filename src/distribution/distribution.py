@@ -4,7 +4,7 @@
         random.sample(ls, k=len(ls))
 """
 from abc import ABC, abstractmethod
-from typing import Generator, TypeVar, List
+from typing import List
 
 
 class Distribution(ABC):
