@@ -116,10 +116,10 @@ def threshold_main():
     simulation: sim.Simulation = sim.Simulation(people, ring_order, ThresholdBuilder().set_weight(weight))
     zipf: ds.Zipf = ds.Zipf(people, max_msgs, s)
     signature = simulation.simulate(zipf)
-    scorer = sc.UnlinkabilityScorer(people)
+    scorer = sc.AnonymityScorer(people)
     print("Anonymity:", an.calculate(len(simulation.list_msgs), ring_order, people))
     print(scorer.get_scores(simulation.list_msgs, signature))
-    reviewer = rv.Reviewer(signature, scorer)
+    reviewer = rv.AnonymityReviewer(signature, scorer)
     print(reviewer.review(simulation.list_msgs))
 
 def incremental_main():
@@ -138,10 +138,10 @@ def incremental_main():
     simulation: sim.Simulation = sim.Simulation(people, ring_order, IncWeightBuilder().set_min_weight(min_weight).set_max_weight(max_weight).set_p(0.3))
     zipf: ds.Zipf = ds.Zipf(people, max_msgs, s)
     signature = simulation.simulate(zipf)
-    scorer = sc.UnlinkabilityScorer(people)
+    scorer = sc.AnonymityScorer(people)
     print("Anonymity:", an.calculate(len(simulation.list_msgs), ring_order, people))
     print(scorer.get_scores(simulation.list_msgs, signature))
-    reviewer = rv.Reviewer(signature, scorer)
+    reviewer = rv.AnonymityReviewer(signature, scorer)
     print(reviewer.review(simulation.list_msgs))
 
 def main():

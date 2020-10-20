@@ -1,14 +1,11 @@
 from typing import List
 
 from src.data import Context, PreferentialContext
-from src.distribution import Zipf
 from src.simulation import Simulation
-from src.choices.patterns import *
 from functools import reduce
-from collections import Counter
 
 
-class UnlinkabilityScorer:
+class AnonymityScorer:
 
     def __init__(self, people: int):
         self.people = people
@@ -65,7 +62,7 @@ class UnlinkabilityScorer:
 def test(context):
     simulation: Simulation = Simulation(context)
     signature = simulation.simulate()
-    scores = UnlinkabilityScorer(context.get_people()).get_scores(
+    scores = AnonymityScorer(context.get_people()).get_scores(
         simulation.msg_list, signature)
 
     def get_scores(xs): return [(elem, scores[elem]) for elem in reduce(
