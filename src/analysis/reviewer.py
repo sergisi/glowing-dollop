@@ -1,7 +1,9 @@
+from typing import List
+
 from src.analysis.scorer import UnlinkabilityScorer as Scorer
+from src.data import PreferentialContext
 from src.simulation import Simulation
 from src.distribution import Zipf
-from src.choices.patterns import *
 
 
 class Reviewer:
@@ -22,32 +24,16 @@ class Reviewer:
             return "OK"
 
 
-def test(choice_builder, people, ring_order, max_msg, w, s=1.3):
-    choice_builder = choice_builder.reset()
-    if isinstance(choice_builder, WeightBuilder):
-        choice_builder.set_weight(w)
-    simulation: Simulation = Simulation(people, ring_order, choice_builder)
-    zipf: Zipf = Zipf(people, max_msg, s)
-    signature = simulation.simulate(zipf)
-    reviewer = Reviewer(signature, Scorer(people))
-    print(w, reviewer.review(simulation.list_msgs))
-
-
-def test_loop(choice_builder):
-    people, ring_order, max_msg = 200, 12, 15
-    for w in [e for e in range(3)]:
-        test(choice_builder, people, ring_order, max_msg, w)
-
+def test(context: PreferentialContext):
+    sim = Simulation(context)
+    signature = sim.simulate()
+    reviewer = Reviewer(signature, Scorer(context.get_people()))
+    print(context.get_weight(), reviewer.review(sim.msg_list))
 
 def main():
-    """
-    test_loop(UniformBuilder())
-    test_loop(PAttachBuilder().set_weight(1))
-    test_loop(UniquePAttachBuilder().set_weight(1))
-    test_loop(UniquePAttachBuilder().set_weight(2))
-    """
-    test_loop(ThresholdBuilder().set_weight(1))
-    test_loop(ThresholdBuilder().set_weight(2))
+    Context = PreferentialContext(200, 6, 15, 1.3, 1,1)
+    for w in range(1,2,3):
+        test(Context.new_weight(w))
 
 
 

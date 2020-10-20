@@ -28,7 +28,7 @@ class UniformContext(Context):
 
     def choice(self, msg_list) -> Choice:
         from src.choices.uniform import UniformSim
-        return UniformSim(self._people, self.__k, msg_list)
+        return UniformSim(self.get_people(), self.get_k(), msg_list)
 
     def distribution(self) -> UniformDistribution:
         return UniformDistribution(self._people)
@@ -41,7 +41,7 @@ class PreferentialContext(Context):
 
     def choice(self, msg_list) -> Choice:
         from src.choices.preferential import PreferentialAttachmentSim as PASim
-        return PASim(self._people, self.__k, msg_list, self.__weight, self.__initial_weight)
+        return PASim(self.get_people(), self.get_k(), msg_list, self.get_weight(), self.get_initial_weight())
 
     def distribution(self) -> Zipf:
         return Zipf(self._people, self.__max_msg, self.__s)

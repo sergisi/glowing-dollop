@@ -1,4 +1,6 @@
 from typing import List
+
+from src.data import Context, PreferentialContext
 from src.distribution import Zipf
 from src.simulation import Simulation
 from src.choices.patterns import *
@@ -60,13 +62,11 @@ class UnlinkabilityScorer:
                 for i in range(self.people)]
 
 
-def test(builder, max_msg, people, ring_order, s=1.3):
-    simulation: Simulation = Simulation(people, ring_order, builder)
-    zipf: Zipf = Zipf(people, max_msg, s)
-    signature = simulation.simulate(zipf)
-    print(signature[:10])
-    scores = UnlinkabilityScorer(people).get_scores(
-        simulation.list_msgs, signature)
+def test(context):
+    simulation: Simulation = Simulation(context)
+    signature = simulation.simulate()
+    scores = UnlinkabilityScorer(context.get_people()).get_scores(
+        simulation.msg_list, signature)
 
     def get_scores(xs): return [(elem, scores[elem]) for elem in reduce(
         lambda x, y: x.union(y), map(lambda x: set(x), xs))]
@@ -79,12 +79,10 @@ def test(builder, max_msg, people, ring_order, s=1.3):
 
 def main():
     people, ring_order, max_msg = 200, 6, 15
-    #test(PAttachBuilder().set_weight(1), max_msg, people, ring_order)
-    #test(UniquePAttachBuilder().set_weight(1), max_msg, people, ring_order)
-    #test(UniformBuilder(), max_msg, people, ring_order)
-    test(ThresholdBuilder().set_weight(1),max_msg, people, ring_order)
-    test(ThresholdBuilder().set_weight(2),max_msg, people, ring_order)
-    test(ThresholdBuilder().set_weight(2),max_msg, people, ring_order)
+    context = PreferentialContext(people, ring_order, 15, 1.3, 1, 1)
+    test(context)
+    test(context.new_weight(2))
+    test(context.new_weight(3))
 
 
 if __name__ == "__main__":
