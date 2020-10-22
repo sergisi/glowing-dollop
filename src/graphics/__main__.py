@@ -1,8 +1,7 @@
-from src.zipf import zipf
 from collections import Counter, defaultdict
-import matplotlib
-import numpy as np
+
 import matplotlib.pyplot as plt
+from src.zipf import zipf
 
 
 def show_dist(msgs):

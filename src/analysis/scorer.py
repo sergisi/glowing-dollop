@@ -1,8 +1,8 @@
+from functools import reduce
 from typing import List
 
-from src.data import Context, PreferentialContext
+from src.data import PreferentialContext
 from src.simulation import Simulation
-from functools import reduce
 
 
 class AnonymityScorer:

@@ -1,10 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from src.analysis.scorer import AnonymityScorer as Scorer
+from .scorer import AnonymityScorer as Scorer
 from src.data import PreferentialContext
 from src.simulation import Simulation
-from src.distribution import Zipf
 
 
 class Reviewer(ABC):
@@ -45,7 +44,7 @@ class OutlierMedianReviewer(Reviewer):
     def review(self, list_msgs: List[int]):
         scores = list(enumerate(self.scorer.get_scores(list_msgs, self.signature)))
         sorted_list = sorted(scores, key=lambda x: x[1])
-        median = sorted_list[int(len(scores)/2)]
+        median = sorted_list[int(len(scores) / 2)][1]
         max_an = max(map(lambda x: x[1], scores))
         min_an = min(map(lambda x: x[1], scores))
         return median - min_an, max_an - median
