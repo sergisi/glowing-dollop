@@ -24,4 +24,4 @@ class MyTestCase(unittest.TestCase):
         for i in range(self.people):
             self.assertIn(i, reduce(set.union, map(set, signs)))
         for i, p in enumerate(simulation.msg_list):
-            self.assertIn(p,signs[i])
+            self.assertIn(p, signs[i])

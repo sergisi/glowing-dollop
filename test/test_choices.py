@@ -32,7 +32,7 @@ class WeightAfterMessageTest(TemplateTest):
 
     def setUp(self):
         super().setUp()
-        self.choice = PreferentialAttachmentSim(self.persons, self.ring_order, [0], 1)
+        self.choice = PreferentialAttachmentSim(self.persons, self.ring_order, [0], 1, 1)
 
     def test(self):
         signatures = self.choice.apply()
@@ -45,7 +45,7 @@ class WeightAfter2MessagesAuthorTest(TemplateTest):
 
     def setUp(self):
         super().setUp()
-        self.choice = PreferentialAttachmentSim(self.persons, self.ring_order, [0, 0], 1)
+        self.choice = PreferentialAttachmentSim(self.persons, self.ring_order, [0, 0], 1, 1)
 
     def test(self):
         signatures = self.choice.apply()
@@ -58,7 +58,7 @@ class WeightAfter2MessagesOthersTest(TemplateTest):
 
     def setUp(self):
         super().setUp()
-        self.choice = PreferentialAttachmentSim(4, 4, [0, 0], 1)
+        self.choice = PreferentialAttachmentSim(4, 4, [0, 0], 1, 1)
 
     def test(self):
         signatures = self.choice.apply()
