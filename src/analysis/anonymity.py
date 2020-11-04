@@ -18,4 +18,4 @@ def calculate(msgs: int, k: int, people: int):
 
 
 def main():
-    print(calculate(len(Zipf(200, 15, 1.3).messages()), 4, 200))
+    print(calculate(len(Zipf(200, 15, 1.3).messages()), 8, 200))
