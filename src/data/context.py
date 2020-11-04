@@ -54,36 +54,50 @@ class UniformContext(Context):
         super().__init__(people, k)
 
 
-class PreferentialContext(Context):
+class ZipfContext(Context, ABC):
+    def __init__(self, people: int, k: int, max_msg: int, s: float, initial_weight: int,
+                 weight: int):
+        super().__init__(people, k)
+        self.__max_msg = max_msg
+        self.__s = s
 
-    def choice(self, msg_list) -> Choice:
-        from src.choices.preferential import PreferentialAttachmentSim as PASim
-        return PASim(self.get_people(), self.get_k(), msg_list, self.get_weight(), self.get_initial_weight())
 
     def distribution(self) -> Zipf:
         if self.dis is None:
             self.dis = Zipf(self._people, self.__max_msg, self.__s)
         return self.dis
+    
+    def get_s(self):
+        return self.__s
+    
+    def get_max_msg(self):
+        return self.__max_msg
+
+class UniformZipfContext(Context):
+
+
+    def choice(self, msg_list) -> Choice:
+        from src.choices.uniform import UniformSim
+        return UniformSim(self.get_people(), self.get_k(), msg_list)
+
+
+class PreferentialContext(ZipfContext):
+
+    def choice(self, msg_list) -> Choice:
+        from src.choices.preferential import PreferentialAttachmentSim as PASim
+        return PASim(self.get_people(), self.get_k(), msg_list, self.get_weight(), self.get_initial_weight())
 
     def __init__(self, people: int, k: int, max_msg: int, s: float, initial_weight: int,
                  weight: int):
         super().__init__(people, k)
-        self.__max_msg = max_msg
         self.__initial_weight = initial_weight
         self.__weight = weight
-        self.__s = s
-
-    def get_max_msg(self):
-        return self.__max_msg
 
     def get_initial_weight(self):
         return self.__initial_weight
 
     def get_weight(self):
         return self.__weight
-
-    def get_s(self):
-        return self.__s
 
     def new_weight(self, new_weight: int) -> PreferentialContext:
         return PreferentialContext(self.get_people(), self.get_k(), self.__max_msg, self.__s,
