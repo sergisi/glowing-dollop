@@ -55,12 +55,10 @@ class UniformContext(Context):
 
 
 class ZipfContext(Context, ABC):
-    def __init__(self, people: int, k: int, max_msg: int, s: float, initial_weight: int,
-                 weight: int):
+    def __init__(self, people: int, k: int, max_msg: int, s: float):
         super().__init__(people, k)
         self.__max_msg = max_msg
         self.__s = s
-
 
     def distribution(self) -> Zipf:
         if self.dis is None:
@@ -73,8 +71,7 @@ class ZipfContext(Context, ABC):
     def get_max_msg(self):
         return self.__max_msg
 
-class UniformZipfContext(Context):
-
+class UniformZipfContext(ZipfContext):
 
     def choice(self, msg_list) -> Choice:
         from src.choices.uniform import UniformSim
