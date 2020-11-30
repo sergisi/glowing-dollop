@@ -12,7 +12,7 @@ class Context(Distributioner, MessageProducer, ABC):
 
     def __init__(self, people: int, k: int):
         self._people = people
-        self.__k = k
+        self._k = k
         self.msgs = None
         self.sc = None
         self.dis = None
@@ -25,7 +25,7 @@ class Context(Distributioner, MessageProducer, ABC):
         return self._people
 
     def get_k(self):
-        return self.__k
+        return self._k
 
     def scorer(self):
         if self.sc is None:
@@ -57,19 +57,19 @@ class UniformContext(Context):
 class ZipfContext(Context, ABC):
     def __init__(self, people: int, k: int, max_msg: int, s: float):
         super().__init__(people, k)
-        self.__max_msg = max_msg
-        self.__s = s
+        self._max_msg = max_msg
+        self._s = s
 
     def distribution(self) -> Zipf:
         if self.dis is None:
-            self.dis = Zipf(self._people, self.__max_msg, self.__s)
+            self.dis = Zipf(self._people, self._max_msg, self._s)
         return self.dis
     
     def get_s(self):
-        return self.__s
+        return self._s
     
     def get_max_msg(self):
-        return self.__max_msg
+        return self._max_msg
 
 class UniformZipfContext(ZipfContext):
 
@@ -86,20 +86,20 @@ class PreferentialContext(ZipfContext):
 
     def __init__(self, people: int, k: int, max_msg: int, s: float, initial_weight: int,
                  weight: int):
-        super().__init__(people, k)
-        self.__initial_weight = initial_weight
-        self.__weight = weight
+        super().__init__(people, k, max_msg, s)
+        self._initial_weight = initial_weight
+        self._weight = weight
 
     def get_initial_weight(self):
-        return self.__initial_weight
+        return self._initial_weight
 
     def get_weight(self):
-        return self.__weight
+        return self._weight
 
     def new_weight(self, new_weight: int) -> PreferentialContext:
-        return PreferentialContext(self.get_people(), self.get_k(), self.__max_msg, self.__s,
-                                   self.__initial_weight, new_weight)
+        return PreferentialContext(self.get_people(), self.get_k(), self._max_msg, self._s,
+                                   self._initial_weight, new_weight)
 
     def new_initial_weight(self, new_init_weight: int) -> PreferentialContext:
-        return PreferentialContext(self.get_people(), self.get_k(), self.__max_msg, self.__s,
-                                   new_init_weight, self.__weight)
+        return PreferentialContext(self.get_people(), self.get_k(), self._max_msg, self._s,
+                                   new_init_weight, self._weight)
