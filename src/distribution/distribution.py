@@ -90,7 +90,7 @@ def zipf(persons: int,
 
 
 def main():
-    zipf = Zipf(200, 15, 1.3)
+    zipf = Zipf(400, 15, 1.3)
     print(zipf.messages())
 
 
