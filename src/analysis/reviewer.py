@@ -7,7 +7,6 @@ from src.simulation import Simulation
 
 
 class Reviewer(ABC):
-
     def __init__(self, signature: List[List[int]], scorer: Scorer):
         self.signature = signature
         self.scorer: Scorer = scorer
@@ -18,61 +17,53 @@ class Reviewer(ABC):
 
 
 class AnonymityReviewer(Reviewer):
-
     def __init__(self, signature: List[List[int]], scorer: Scorer):
         super().__init__(signature, scorer)
 
     def review(self, list_msgs: List[int]):
-        scores = list(
-            enumerate(self.scorer.get_scores(list_msgs, self.signature)))
+        scores = list(enumerate(self.scorer.get_scores(list_msgs, self.signature)))
         people_visible = list(filter(lambda x: x[1] == 1.0, scores))
         return len(people_visible)
 
 
 class MediumDesviation(Reviewer):
-
     def __init__(self, signature: List[List[int]], scorer: Scorer, mean: int):
         super().__init__(signature, scorer)
         self.mean = mean
 
     def review(self, list_msgs: List[int]):
-        scores = list(
-            enumerate(self.scorer.get_scores(list_msgs, self.signature)))
+        scores = list(enumerate(self.scorer.get_scores(list_msgs, self.signature)))
         return sum(map(lambda x: abs(x[1] - self.mean), scores)) / len(scores)
 
 
 class ReviewerChanger:
-
     def __init__(self, signature, scorer, list_msgs):
         self.signature = signature
         self.scorer: Scorer = scorer
-        self.scores = list(
-            enumerate(self.scorer.get_scores(list_msgs, self.signature)))
+        self.scores = list(enumerate(self.scorer.get_scores(list_msgs, self.signature)))
 
     def apply(self, fun_outer, fun_inner=lambda x: x[1]):
         return fun_outer(map(fun_inner, self.scores))
 
 
 class PeopleFinder:
-
     def __init__(self, signature, scorer, context: Context):
         self.signature = signature
         self.scorer: Scorer = scorer
         self.scores = list(
-            enumerate(self.scorer.get_scores(context.messages(), self.signature)))
+            enumerate(self.scorer.get_scores(context.messages(), self.signature))
+        )
         self.context = context
 
     def apply(self, num_msgs):
         from collections import Counter
+
         counter = Counter(self.context.messages())
-        index = filter(lambda x: x[1] == num_msgs, counter.most_common()) \
-            .__next__()[0]
-        return filter(lambda x: x[0] == index, self.scores) \
-            .__next__()[1]
+        index = filter(lambda x: x[1] == num_msgs, counter.most_common()).__next__()[0]
+        return filter(lambda x: x[0] == index, self.scores).__next__()[1]
 
 
 class MeanReviewer(Reviewer):
-
     def review(self, list_msgs: List[int]):
         scores = list(enumerate(self.scorer.get_scores(list_msgs, self.signature)))
         mean = sum(map(lambda x: x[1], scores)) / len(scores)
@@ -80,7 +71,6 @@ class MeanReviewer(Reviewer):
 
 
 class MedianReviewer(Reviewer):
-
     def review(self, list_msgs: List[int]):
         scores = list(enumerate(self.scorer.get_scores(list_msgs, self.signature)))
         sorted_list = sorted(scores, key=lambda x: x[1])

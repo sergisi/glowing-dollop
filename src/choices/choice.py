@@ -5,9 +5,7 @@ from typing import List
 
 
 class Choice(ABC):
-
-    def __init__(self, people: int, ring_order: int,
-                 message_list: List[int]):
+    def __init__(self, people: int, ring_order: int, message_list: List[int]):
         if ring_order > people:
             raise ValueError
         self.people = people

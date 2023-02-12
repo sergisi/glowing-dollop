@@ -1,0 +1,130 @@
+#+title: Design Notes
+
+* Previous design
+#+begin_src plantuml :file uml.png
+!theme plain
+
+class Context {
+        + msgs: Lazy<list[int]>
+        + score: Lazy<AnonimityScorer>
+        + distribution: Lazy<Distribution>
+        + people: int
+        + k: int
+
+        + abstract choice(msg_list) -> Choice
+}
+
+class UniformContext {
+        + choice(msg_list) -> UniformSim
+        + distribution: UniformDistribution
+
+}
+
+class ZipfContext {
+        + distribution: Zipf
+}
+
+class UniformZipfContext {
+        + choice: UniformSim
+}
+
+class PreferentialContext {
+        + initial_weight: int
+        + weight: int
+
+        + choice: PASim
+}
+
+class Choice{
+        + ring_order: int
+        + people: int
+        + message_list: list[int]
+
+        + abstract apply(): Random<list[list[int]]>
+
+
+}
+
+
+class PreferentialAttachmentSim {
+        + message_weight: int
+        + initial_weight: int
+}
+
+Choice <|-- PreferentialAttachmentSim
+
+Context <|-- UniformContext
+Context <|-- ZipfContext
+ZipfContext <|-- UniformZipfContext
+ZipfContext <|-- PreferentialContext
+
+class Simulation {
+        + context: Context
+        + msg_list: list[??]
+        + simulate(seed=None) -> choice
+}
+
+#+end_src
+
+#+RESULTS:
+[[file:uml.png]]
+
+[[uml.png]]
+
+** Problems with the design
+Most of the classes are left unusued, and use lazyly loaded properties that need to be changed as an extension of the base class without adding any differential value.
+
+You only want to use lazy properties when:
++ It takes time to load them.
++ They are not always used, and can be computed by the other properties (even if it takes little time)
+And both of these reasons don't appy (it's O(1) creating them, and they are always used).
+
+At the end of the day, all the contexts can be shown as different costructors of contexts,
+* Changesin the design
+At the end of the day, the interface should be painless to hack around, because that what simulations are
+used for. When you have to create a flipping heriearchy of classes just to extend a method, then it's never worth it.
+
+** Simplify Context, Simulation
+~Simulation~ only adds one method to context, without providing any valuable thing. It can either be made as an inside method for context, or changed to an external function that takes context. I will change it to the later, as it seems that it will be easier to provide.
+
+For ~Context~, all the design will be changed so that it only takes Context class, and use the all the things as variables (because they are exactly that).
+
+** Distributioner, Message Passer
+It's literally one method this two interfaces, and it does not make any sense for them to be anything else.
+
+Like, to the point that both create just a list of messages, the MessagePasser is to make creating them lazy, and the Distributioner is to create lazyly the MessagePasser. Like, why??
+
+** Choice
+I don't like ~Choice~:
++ It repeats information that we already have in context
++ It only has one method, meaning that it's just a currification of the function.
+
+That why it will be changed from an abstract class to a well defined ~Function~, which will make it easier to mock and use around.
+
+
+* New design
+Parameters: Message list,
+1. Creates message list using a distribution: Distribution method (variables may change for this)
+2. Creates list of list of identifications, as this one will make the scoring features: Choice method (List[Id] -> Random[List[List[Id]]])
+3. Score the function as a partially scorer: Scorer functions (??)
+4. Add all the scorers together and perform the last operation to get the results: Sum of scorers
+
+#+begin_src plantuml :file new-design.png
+
+
+#+end_src
+
+
+* PROJ Clean design
+** Message Distribution
+** TODO Clean Context
+*** TODO make Context DTO
+Parameters:
++ people :: int
++ k :: int
+
+*** TODO make simulation method
+*** TODO make constructor directives
++ Zipf
++ Uniform
++ Preferential

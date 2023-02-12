@@ -7,7 +7,6 @@ from .choice import Choice
 
 
 class UniformSim(Choice):
-
     def apply(self) -> List[List[int]]:
         """
         Takes a random number of k elements in order to sign the message.
