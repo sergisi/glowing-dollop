@@ -1,8 +1,8 @@
 import random
 import typing
-from ..context import context
+from ..context import Context
 
-Choice = typing.Function[[Context], list[list[int]]]
+Choice = typing.Callable[[Context], list[list[int]]]
 
 def _accumulate_weights(weigth_list: list[int]) -> list[int]:
     """
@@ -67,7 +67,7 @@ def preferential_attachment_choice(
             w = list(weights)
             # User that sends the message is of course in the group, so don't add it two times.
             w[msg] = 0
-            actual = _get_subset_pool(w, ring_order - 1)
+            actual = _get_subset_pool(w, context.ring_order - 1)
             actual.append(msg)
             result.append(actual)
             for i in actual:

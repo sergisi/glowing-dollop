@@ -3,7 +3,7 @@
     to generate a zipfg. Then sample it with:
         random.sample(ls, k=len(ls))
 """
-from context import Context
+from src.context import Context
 import typing
 
 
@@ -12,7 +12,7 @@ def uniform_distribution(context: Context) -> list[int]:
 
 def zipf_distribution(max_msg: int, s: float) -> typing.Callable[[Context], list[int]]:
     def a(context: Context) -> list[int]:
-        return _zipf(context.people, self.max_msg, s)
+        return _zipf(context.people, max_msg, s)
     return a
 
 def _correct_msm(number_persons, persons):
@@ -45,8 +45,8 @@ def _zipf(persons: int, maximum_messages: int, s: float = 2.5) -> list[int]:
 
 
 def main():
-    _zipf = _zipf(400, 15, 1.3)
-    print(_zipf)
+    zipf = _zipf(400, 15, 1.3)
+    print(zipf)
 
 
 if __name__ == "__main__":
