@@ -1,94 +1,78 @@
-from abc import ABC, abstractmethod
-from typing import List
+import typing
+import dataclasses as dto
+import functools
 
-from .scorer import AnonymityScorer as Scorer
+from .scorer import anonymity_score
 from src.data import PreferentialContext, Context
 from src.simulation import Simulation
 
+@dto.dataclass
+class Review:
+    """
+    # Review a Simulation.
 
-class Reviewer(ABC):
-    def __init__(self, signature: List[List[int]], scorer: Scorer):
-        self.signature = signature
-        self.scorer: Scorer = scorer
+    The purpose of this class is to provide a painless way to generate stats
+    about a Simulation.
 
-    @abstractmethod
-    def review(self, list_msgs: List[int]):
-        pass
+    The general methodology will be to first provide the Simulation, and optionally
+    a scorer, although I don't know when it will be nice to have.
 
+    Then, the implementation of this class is to have a bunch of cached properties,
+    so if you need the mean, median, max, min of the anonymity of the class you can
+    have it by a simple property, and meaningful but partially results can be used
+    for all of the statistics.
 
-class AnonymityReviewer(Reviewer):
-    def __init__(self, signature: List[List[int]], scorer: Scorer):
-        super().__init__(signature, scorer)
+    This simplifies the architecture of having a thousand classes to provide this blocks,
+    albait due to python non extensible classes (and I mean Kotlin-like, not hierarchy based),
+    it may grow into a large class, although all of the methods should have 2 lines of code.
 
-    def review(self, list_msgs: List[int]):
-        scores = list(enumerate(self.scorer.get_scores(list_msgs, self.signature)))
-        people_visible = list(filter(lambda x: x[1] == 1.0, scores))
+    :params simulation: the simulation to perform statistics to.
+    :params scorer: the score function. For each identification it provides a score, that is,
+        the total messages that an id has signed divided by the real messages that has posted.
+        If it's one, then there is somobody that all its messages that he appeared have been posted
+        by them.
+
+    """
+    simulation: Simulation
+    scorer: typing.Callable[[Simulation], list[float]] = anonymity_score
+
+    @functools.cached_property
+    def scores(self):
+        return sorted(list(enumerate(self.scorer(self.simulation))))
+
+    @functools.cached_property
+    def anonymity(self):
+        """
+        Returns how many people do not have any anonimity. It could be improved
+        efficiently with a take-while instead of a filter, but I do not care.
+        """
+        people_visible = list(filter(lambda x: x[1] == 1.0, self.scores))
         return len(people_visible)
 
-
-class MediumDesviation(Reviewer):
-    def __init__(self, signature: List[List[int]], scorer: Scorer, mean: int):
-        super().__init__(signature, scorer)
-        self.mean = mean
-
-    def review(self, list_msgs: List[int]):
-        scores = list(enumerate(self.scorer.get_scores(list_msgs, self.signature)))
+    @functools.cached_property
+    def medium_desviation(self):
+        scores = self.scores
         return sum(map(lambda x: abs(x[1] - self.mean), scores)) / len(scores)
 
+    # Note: there was a HOF function and a PeopleFinder class that I do not know
+    # what they were or why they were useful. No docs provided, no code used.
 
-class ReviewerChanger:
-    def __init__(self, signature, scorer, list_msgs):
-        self.signature = signature
-        self.scorer: Scorer = scorer
-        self.scores = list(enumerate(self.scorer.get_scores(list_msgs, self.signature)))
+    @functoools.cached_property
+    def mean(self):
+        scores = self.scores
+        return sum(map(lambda x: x[1], scores)) / len(scores)
 
-    def apply(self, fun_outer, fun_inner=lambda x: x[1]):
-        return fun_outer(map(fun_inner, self.scores))
+    @functools.cached_property
+    def median(self):
+        scores = self.scores
+        return sorted_list[int(len(scores) / 2)][1]
 
+    @property
+    def min(self):
+        return self.scores[0][1]
 
-class PeopleFinder:
-    def __init__(self, signature, scorer, context: Context):
-        self.signature = signature
-        self.scorer: Scorer = scorer
-        self.scores = list(
-            enumerate(self.scorer.get_scores(context.messages(), self.signature))
-        )
-        self.context = context
-
-    def apply(self, num_msgs):
-        from collections import Counter
-
-        counter = Counter(self.context.messages())
-        index = filter(lambda x: x[1] == num_msgs, counter.most_common()).__next__()[0]
-        return filter(lambda x: x[0] == index, self.scores).__next__()[1]
+    @property
+    def max(self):
+        return self.scores[-1][1]
 
 
-class MeanReviewer(Reviewer):
-    def review(self, list_msgs: List[int]):
-        scores = list(enumerate(self.scorer.get_scores(list_msgs, self.signature)))
-        mean = sum(map(lambda x: x[1], scores)) / len(scores)
-        return mean
-
-
-class MedianReviewer(Reviewer):
-    def review(self, list_msgs: List[int]):
-        scores = list(enumerate(self.scorer.get_scores(list_msgs, self.signature)))
-        sorted_list = sorted(scores, key=lambda x: x[1])
-        median = sorted_list[int(len(scores) / 2)][1]
-        return median
-
-
-def test(context: PreferentialContext):
-    sim = Simulation(context)
-    signature = sim.simulate()
-    finder = PeopleFinder(signature, Scorer(context.get_people()), context)
-    print(finder.apply(1), finder.apply(5), finder.apply(15))
-
-
-def main():
-    context = PreferentialContext(200, 6, 15, 1.3, 1, 1)
-    test(context)
-
-
-if __name__ == "__main__":
-    main()

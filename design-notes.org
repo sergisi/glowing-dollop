@@ -116,15 +116,21 @@ Parameters: Message list,
 
 
 * PROJ Clean design
-** Message Distribution
-** TODO Clean Context
-*** TODO make Context DTO
+
+** DONE Message Distribution
+** DONE Clean Context
+*** DONE make Context DTO
 Parameters:
 + people :: int
 + k :: int
 
-*** TODO make simulation method
-*** TODO make constructor directives
+*** DONE make simulation method
+*** DONE make constructor directives
 + Zipf
 + Uniform
 + Preferential
+** TODO Clean analytics
+The analytics part is also over_enginered. Like, the whole thing screams to not be enjoyed learning about.
+
+To be honest, for this  purpose I would make a huge object with cached properties. It will make easier to
+make an study.
