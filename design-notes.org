@@ -103,34 +103,108 @@ That why it will be changed from an abstract class to a well defined ~Function~,
 
 
 * New design
+** The idea of a Simulation
 Parameters: Message list,
 1. Creates message list using a distribution: Distribution method (variables may change for this)
 2. Creates list of list of identifications, as this one will make the scoring features: Choice method (List[Id] -> Random[List[List[Id]]])
 3. Score the function as a partially scorer: Scorer functions (??)
-4. Add all the scorers together and perform the last operation to get the results: Sum of scorers
+4. Encapsulates the result on a Simulation
+5. Scores the Simulation to extract the statistics
 
+** Distribution
+Distributions are functions that given a context, they generate a list of messages, which are list of integers that represent the identification of the user.
+
+There are two main distributions:
++ Uniform distribution
++ Zipf distribution, which needs a partial application, as there is a max_msg and s parameters that need to be set in order to generate the message.
+
+** Context
+A context has the parameters that are unchangeble, and unrandomly of a configuration, given the number of people, the ring order, which is the number of people that encrypt the message; and finally the distribution method.
+
+Technically it bootstraps the distribution with a double dispatch to generate and cache the list of messages to be send.
+
+** Choices / simulators
+The simulate the underlying protocol.
+
+The protocol is a function that changes a list of messages to a list of encrypted/signed messages, which are represented as a list of messages of all the people that have encrypted them. Note that most of them have the last position or the first position with the user that actually send the message. This is not an inconvenient, as it's only used for analysis.
+
+Then a simulator is something that generates from a context a list of encrypted messages. The context is to better encapsulate the information that is needed for the simulation, as it is pretty important. This lets create scripts more easily than having the lockdown of classes.
+
+** Simulation DTO
+A simulation is a DTO that has the result of the simulation, that is, the list of encrypted messages, the list of messages send in the order that it did. and the Context of the simulation. This lets to create the statistics using this object as a function or a class.
+
+** Analyzer or Reviewer
+The reviewer is a class that performs the statistical analysis of a Simulation with cached properties and partial results. It should be faster, but there are no test on how much faster it is.
+
+This is a contrast between the 6 classes before, which will make reviewing easier.
+
+It's planned to create a way to generate a table row with either csv or org, so that the writing of the article becomes easier. Generating a csv is better for latex tables. If it's not big enough, then org should be a little bit faster.
+
+** Graphics
+It was left unused. Probably it's just better to put the requirements in the scripts and delete the whole package.
+
+** UML
 #+begin_src plantuml :file new-design.png
+!theme plain
 
+class Distribution {
+  + __call__(context: Context) -> list[int]
+}
+
+class Context {
+  + people: int
+  + ring_order: int
+  + distribution: Context -> list[int]
+  + msg_list: list[int]
+}
+
+class Simulation {
+  + msg_list: list[int]
+  + seed: int | None
+  + context: Context
+  + signature: list[list[int]]
+}
+
+class Reviewer {
+  + simulation: Simulation
+  + scorer: Simulation -> list[float] = anonymity_score
+  --
+  + scores: ordered_list[(pos, score)]
+  + anonymity: people without anonymity
+  + medium_desviation: float
+  + mean: float
+  + median: float
+  + min: float
+  + max: float
+}
+
+Distribution -- Context
+Context -- Simulation
+Simulation -- Reviewer
 
 #+end_src
 
+#+RESULTS:
+[[file:new-design.png]]
 
-* PROJ Clean design
+* DONE Finishing Clearing up
+** DONE Write documentation on current design.
+Everything should have its own documentation, I have become painfully aware of that.
 
-** DONE Message Distribution
-** DONE Clean Context
-*** DONE make Context DTO
-Parameters:
-+ people :: int
-+ k :: int
+** DONE Rewrite all tests with a simulation in mind
+The refactor has been major, so everything should be tested again.
 
-*** DONE make simulation method
-*** DONE make constructor directives
-+ Zipf
-+ Uniform
-+ Preferential
-** TODO Clean analytics
-The analytics part is also over_enginered. Like, the whole thing screams to not be enjoyed learning about.
+Let's try to have a good coverage before proceeding to study the protocols.
 
-To be honest, for this  purpose I would make a huge object with cached properties. It will make easier to
-make an study.
+
+* PROJ More simulations
+
+** TODO Change in user behaviour
+What happens if a superuser goes to lurking for a while?
+
+I should make some simulation to prove the different methodologies.
+
+** TODO New encryption method
+Get the last n messages to see how it adapts. It should prevent snowballing with more messages, and it would be quicker to adapt when user behaviour patterns change.
+
+** TODO Moving average as encryption

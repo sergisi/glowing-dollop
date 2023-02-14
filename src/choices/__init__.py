@@ -1,5 +1,5 @@
 from .preferential import *
-from .threshold import ThresholdSim
+from .timely import *
 
 def uniform_simulator(context: Context, msg_list: list[int]) -> list[list[int]]:
     """
@@ -7,7 +7,7 @@ def uniform_simulator(context: Context, msg_list: list[int]) -> list[list[int]]:
     :return: list of group encrypted messages
     """
     result = []
-    choices = {i for i in range(context.people)}
+    choices = list(range(context.people))
     for msg in msg_list:
         actual = random.sample(choices, k=context.ring_order)
         if msg not in actual:

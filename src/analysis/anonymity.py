@@ -1,6 +1,3 @@
-from src.distribution import Zipf
-
-
 def calc(acc, len_msgs, k, people):
     if k == 0:
         return 0
@@ -16,6 +13,3 @@ def calculate(msgs: int, k: int, people: int):
     res = msgs / people
     return res + calc(res, msgs, k - 1, people - 1)
 
-
-def main():
-    print(calculate(len(Zipf(200, 15, 1.3).messages()), 8, 200))

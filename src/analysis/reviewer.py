@@ -3,7 +3,6 @@ import dataclasses as dto
 import functools
 
 from .scorer import anonymity_score
-from src.data import PreferentialContext, Context
 from src.simulation import Simulation
 
 @dto.dataclass
@@ -37,11 +36,11 @@ class Review:
     scorer: typing.Callable[[Simulation], list[float]] = anonymity_score
 
     @functools.cached_property
-    def scores(self):
-        return sorted(list(enumerate(self.scorer(self.simulation))))
+    def scores(self) -> list[tuple[int, float]]:
+        return sorted(list(enumerate(self.scorer(self.simulation))), key=lambda x: x[1])
 
     @functools.cached_property
-    def anonymity(self):
+    def anonymity(self) -> int:
         """
         Returns how many people do not have any anonimity. It could be improved
         efficiently with a take-while instead of a filter, but I do not care.
@@ -50,29 +49,39 @@ class Review:
         return len(people_visible)
 
     @functools.cached_property
-    def medium_desviation(self):
+    def medium_desviation(self) -> float:
         scores = self.scores
         return sum(map(lambda x: abs(x[1] - self.mean), scores)) / len(scores)
 
     # Note: there was a HOF function and a PeopleFinder class that I do not know
     # what they were or why they were useful. No docs provided, no code used.
 
-    @functoools.cached_property
-    def mean(self):
+    @functools.cached_property
+    def mean(self) -> float:
         scores = self.scores
         return sum(map(lambda x: x[1], scores)) / len(scores)
 
-    @functools.cached_property
-    def median(self):
+    @property
+    def median(self) -> float:
         scores = self.scores
-        return sorted_list[int(len(scores) / 2)][1]
+        return scores[int(len(scores) / 2)][1]
 
     @property
-    def min(self):
+    def min(self) -> float:
         return self.scores[0][1]
 
     @property
-    def max(self):
+    def max(self) -> float:
         return self.scores[-1][1]
 
-
+    def describe(self, sep=' | '):
+        return sep.join(str(x) for x in
+                        [self.anonymity,
+                         self.medium_desviation,
+                         self.mean,
+                         self.median,
+                         self.min,
+                         self.max,
+                         len(self.simulation.msg_list),
+                         len(self.simulation.msg_list) * self.simulation.context.ring_order,
+                         ])

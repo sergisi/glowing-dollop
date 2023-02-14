@@ -1,7 +1,6 @@
 import functools
 from typing import List
 
-from src.data import PreferentialContext
 from src.simulation import Simulation
 
 def __simulation_to_dictionary(simulation: Simulation) -> list[int]:

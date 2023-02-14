@@ -1,69 +1,38 @@
 import unittest
-from src.choices import UniformSim, PreferentialAttachmentSim
-from abc import ABC
+from src.choices import *
+from src.context import Context
 
 
-class TemplateTest(unittest.TestCase, ABC):
+class ChoiceTest(unittest.TestCase):
+    ctx: Context
 
     def setUp(self):
-        self.persons = 10
-        self.ring_order = 4
-        self.message_list = list(range(10)) + list(range(5))
-        self.choice = None
+        self.ctx = Context(10, 4, lambda _: list(range(10)) + list(range(5)))
 
-    def check(self):
-        sigs = self.choice.apply()
-        for e, s in zip(self.message_list, sigs):
+    def check(self, sigs):
+        for e, s in zip(self.ctx.message_list, sigs):
             self.assertIn(e, s)
-        self.assertTrue(len(self.message_list), len(sigs))
+        self.assertTrue(len(self.ctx.message_list), len(sigs))
 
+    def test_uniform(self):
+        self.check(uniform_simulator(self.ctx, self.ctx.message_list))
 
-class UniformTest(TemplateTest):
+    def test_zipf(self):
+        signatures = preferential_attachment_choice(3, 1)(self.ctx, self.ctx.message_list)
+        self.check(signatures)
 
-    def setUp(self):
-        super().setUp()
-        self.choice = UniformSim(self.persons, self.ring_order, self.message_list)
+class TimelyWeightTest(unittest.TestCase):
 
-    def test(self):
-        self.check()
-
-
-class WeightAfterMessageTest(TemplateTest):
-
-    def setUp(self):
-        super().setUp()
-        self.choice = PreferentialAttachmentSim(self.persons, self.ring_order, [0], 1, 1)
-
-    def test(self):
-        signatures = self.choice.apply()
-        self.assertIn(0, signatures[0])
-        for member in signatures[0]:
-            self.assertEqual(2, self.choice.weights[member], f"The weight of the participant {member} is not 2")
-
-
-class WeightAfter2MessagesAuthorTest(TemplateTest):
-
-    def setUp(self):
-        super().setUp()
-        self.choice = PreferentialAttachmentSim(self.persons, self.ring_order, [0, 0], 1, 1)
-
-    def test(self):
-        signatures = self.choice.apply()
-        for signature in signatures:
-            self.assertIn(0, signature)
-        self.assertEqual(3, self.choice.weights[0])
-
-
-class WeightAfter2MessagesOthersTest(TemplateTest):
-
-    def setUp(self):
-        super().setUp()
-        self.choice = PreferentialAttachmentSim(4, 4, [0, 0], 1, 1)
-
-    def test(self):
-        signatures = self.choice.apply()
-        for p in range(0, 4):
-            for signature in signatures:
-                self.assertIn(p, signature, f"{p} is not in signature {signature}")
-        for p in range(0, 4):
-            self.assertEqual(3, self.choice.weights[p], f"It failed member {p}")
+    def test_weight(self):
+        w = Weight(5, 3, 1, 3)
+        w.push([0, 1, 2, 3])
+        self.assertEqual([4, 4, 4, 4, 1], w.weights)
+        # assertions
+        w.push([0, 1, 3, 4])
+        self.assertEqual([7, 7, 4, 7, 4], w.weights)
+        w.push([0, 1, 2, 4])
+        self.assertEqual([10, 10, 7, 7, 7], w.weights)
+        w.push([1, 2, 3, 4])
+        self.assertEqual([7, 10, 7, 7, 10], w.weights)
+        self.assertEqual(10, w[1])
+        self.assertEqual(7, w[0])

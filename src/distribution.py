@@ -1,21 +1,36 @@
 """
-    Module for generating zipf instances. The way of doing it is
-    to generate a zipfg. Then sample it with:
-        random.sample(ls, k=len(ls))
+Module that contains the different distributions to be performed. If it would grow large enough, change to a
+full module.
+
+Distribtions are functions s.t. Context -> List of id's posters.
+
+The distribution should be shuffled to get the different messages, which is left to be done by the simulation.
+
+Current distributions are uniform_distribution, and zipf_distribution. The later is a constructor for the distribution.
 """
 from src.context import Context
 import typing
 
 
 def uniform_distribution(context: Context) -> list[int]:
+    """
+    Uniform distribution function. Does not need hyperparameters
+    """
     return list(range(context.people))
 
 def zipf_distribution(max_msg: int, s: float) -> typing.Callable[[Context], list[int]]:
+    """
+    Constructor for distributions. It generates the function to create the zipf dist.
+
+    : param max_msg: the number of maximum messages that a super user can create.
+
+    : param s: stat parameter that I do not remember about.
+    """
     def a(context: Context) -> list[int]:
         return _zipf(context.people, max_msg, s)
     return a
 
-def _correct_msm(number_persons, persons):
+def correct_msm(number_persons, persons):
     total_people = sum(int(x) for x in number_persons)
     if total_people == persons:
         return [int(x) for x in number_persons]
@@ -32,7 +47,7 @@ def _zipf(persons: int, maximum_messages: int, s: float = 2.5) -> list[int]:
         prob_msm(x) * persons / total for x in range(1, maximum_messages + 1)
     ]
     # import pdb; pdb.set_trace()
-    number_persons = _correct_msm(number_persons, persons)
+    number_persons = correct_msm(number_persons, persons)
     messages: list[int] = []
     current_person = 0  # current person to add in the message list
     for it, i in enumerate(number_persons, 1):
