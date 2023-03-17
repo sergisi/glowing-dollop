@@ -1,7 +1,25 @@
 import functools
-from typing import List
+import dataclasses as dto
+import typing
 
 from src.simulation import Simulation
+
+
+@dto.dataclass
+class User:
+    pk: int
+    messages: int
+    signatures: int
+
+    @property
+    def anonymity(self):
+        if self.messages == 0:
+            return self.signatures  # a user that do not exist
+        return self.signatures / self.messages
+
+    def to_csv_row(self):
+        return f"{self.pk}, {self.messages}, {self.signatures}"
+
 
 def __simulation_to_dictionary(simulation: Simulation) -> list[int]:
     """
@@ -19,6 +37,7 @@ def __simulation_to_dictionary(simulation: Simulation) -> list[int]:
             res[person] += 1
     return res
 
+
 def __get_messagecount(simulation: Simulation) -> list[int]:
     """
     Parses a message_list and counts the number of messages send by a
@@ -28,7 +47,8 @@ def __get_messagecount(simulation: Simulation) -> list[int]:
         msgcount[i] += 1
     return msgcount
 
-def anonymity_score(simulation: Simulation) -> list[int]:
+
+def anonymity_score(simulation: Simulation) -> list[User]:
     """
     Parses a the simulation result (signatures) into a list containing
     in the nth value the anounimosity of the nth person. The common
@@ -46,8 +66,35 @@ def anonymity_score(simulation: Simulation) -> list[int]:
     """
     sim = __simulation_to_dictionary(simulation)
     msgcount = __get_messagecount(simulation)
-    return [
-        sim[i] / msgcount[i] if msgcount[i] != 0 else 0 for i in range(simulation.context.people)
-    ]
+    return [User(i, msgcount[i], sim[i]) for i in range(simulation.context.people)]
 
 
+def anonymity_window(window: int) -> typing.Callable[[Simulation], list[User]]:
+    """
+    Computes probability s.t. how many messages has firstly send in the window in the signature vs.
+    how many real messages has been sent that way.
+    """
+
+    def a(simulation: Simulation) -> list[User]:
+        assert_msg = f"Window should be bigger than msg_list: {window} >= {len(simulation.msg_list)}"
+        assert window < len(simulation.msg_list), assert_msg
+        broken = [0 for _ in range(simulation.context.people)]
+        total = [0 for _ in range(simulation.context.people)]
+        window_list = [0 for _ in range(simulation.context.people)]
+        for signature in simulation.signature[:window]:
+            for user in signature:
+                total[user] += 1
+        n = 0
+        for i, signature in enumerate(simulation.signature[window:], start=window):
+            for user in signature:
+                if window_list[user] == 0:
+                    n += 1
+                    total[user] += 1
+                    if simulation.msg_list[i] == user:
+                        broken[user] += 1
+                window_list[user] += 1
+            for user in simulation.signature[i - window]:
+                window_list[user] -= 1
+        return [User(i, broken[i], total[i]) for i in range(simulation.context.people)]
+
+    return a

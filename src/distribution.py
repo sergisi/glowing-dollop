@@ -18,6 +18,7 @@ def uniform_distribution(context: Context) -> list[int]:
     """
     return list(range(context.people))
 
+
 def zipf_distribution(max_msg: int, s: float) -> typing.Callable[[Context], list[int]]:
     """
     Constructor for distributions. It generates the function to create the zipf dist.
@@ -26,9 +27,12 @@ def zipf_distribution(max_msg: int, s: float) -> typing.Callable[[Context], list
 
     : param s: stat parameter that I do not remember about.
     """
+
     def a(context: Context) -> list[int]:
         return _zipf(context.people, max_msg, s)
+
     return a
+
 
 def correct_msm(number_persons, persons):
     total_people = sum(int(x) for x in number_persons)
@@ -39,6 +43,7 @@ def correct_msm(number_persons, persons):
         res[-n] = (res[-n][0], res[-n][1] + 1)
     res = sorted(res)
     return [int(x[1]) for x in res]
+
 
 def _zipf(persons: int, maximum_messages: int, s: float = 2.5) -> list[int]:
     prob_msm = lambda x: 1 / (x**s)

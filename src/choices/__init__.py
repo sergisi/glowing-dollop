@@ -1,6 +1,7 @@
 from .preferential import *
 from .timely import *
 
+
 def uniform_simulator(context: Context, msg_list: list[int]) -> list[list[int]]:
     """
     Takes a random number of k elements in order to sign the message.

@@ -1,0 +1,12 @@
+\begin{thebibliography}{1}
+
+\bibitem{group}
+E.~b.~H. D.~Chaum, ``Group signatures in advances in cryptology - eurocrypt'91,
+  lecture notes in computer science,'' vol.~547, pp.~257--256, 1991.
+
+\bibitem{ring}
+Y.~T. R.L.~Rivest, A.~Shamir, ``How to leak a secret, in intl. conf. on the
+  theroy and application of cryptology and information security, lecure notes
+  in computer science,'' vol.~2248, pp.~552--565, 2001.
+
+\end{thebibliography}

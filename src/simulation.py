@@ -4,6 +4,7 @@ import dataclasses as dto
 
 from src.context import Context
 
+
 @dto.dataclass
 class Simulation:
     context: Context
@@ -13,10 +14,10 @@ class Simulation:
 
 
 def simulate(
-        context: Context,
-        # message_function: typing.Callable[[Context], list[int]],
-        group_encrypter: typing.Callable[[Context, list[int]], list[list[int]]],
-        seed: int | None = None,
+    context: Context,
+    # message_function: typing.Callable[[Context], list[int]],
+    group_encrypter: typing.Callable[[Context, list[int]], list[list[int]]],
+    seed: int | None = None,
 ):
     # msg_list = message_function(context)
     # random.seed(seed)

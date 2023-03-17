@@ -2,12 +2,13 @@ import random
 import typing
 from ..context import Context
 from .choice import Choice
-from .utils import *
+from .weighted_choice import *
+
 
 def preferential_attachment_choice(
-        message_weight: int,
-        initial_weight: int,
-        ) -> Choice:
+    message_weight: int,
+    initial_weight: int,
+) -> Choice:
     def a(context: Context, message_list: list[int]):
         weights = [initial_weight] * context.people
         result = []
@@ -21,7 +22,9 @@ def preferential_attachment_choice(
             for i in actual:
                 weights[i] += message_weight
         return result
+
     return a
+
 
 def unique_pattach(message_weight: int) -> Choice:
     return preferential_attachment_choice(message_weight, 1)
@@ -41,14 +44,11 @@ def _weights_values(context: Context, message_list):
     return res
 
 
-def inc_weight_pas(
-        min_weight: int,
-        max_weight: int,
-        prob: int
-) -> Choice:
+def inc_weight_pas(min_weight: int, max_weight: int, prob: int) -> Choice:
     """
     No idea what is this simulation.
     """
+
     def a(context: Context, message_list: list[int]):
         """
         For every message in the list, puts the list of the weights at 0
@@ -66,4 +66,3 @@ def inc_weight_pas(
             for i in actual:
                 weights[i] += message_weights[i]
         return result
-

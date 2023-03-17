@@ -1,4 +1,17 @@
+"""
+Module that contains functions to take a choice given a list of weights.
+
+The idea is that of a colored bag of balls. More explained, every point
+in the list has a number of balls. So for exemple [20, 30, 5] means that
+there are 20 balls of red, 30 of green and 5 of blue. This module simualtes
+which color is chosed randomly in this problem. The values v must conform
+$v \geq 0$.
+
+The algorithm could get an improvement in efficiency using a dicatomic search
+in get_elem, as the list is ordered.
+"""
 import random
+
 
 def accumulate_weights(weigth_list: list[int]) -> list[int]:
     """
@@ -20,10 +33,13 @@ def get_elem(accw: list[int]) -> int:
     """
     Given a weighted list of identifications, choose one according to its weight.
 
-    The way to do so: every position has the accumulated weight. That's: the weight that it has
-    plus the weight of the previous one. This means that if s is the sum of all the weights possible,
-    then all of them have a probability of w/s to be chosen. Note that if a weight is 0, then it's not
+    The way to do so: every position has the accumulated weight. That's: the
+    weight that it has plus the weight of the previous one. This means that if
+    it is the sum of all the weights possible, then all of them have a
+    probability of w/s to be chosen. Note that if a weight is 0, then it's not
     possible to be chosen.
+
+    Further improvement could be done with a dicatomic search.
 
     :param accw -> list[int]: accumlated list of weights
     """
@@ -31,7 +47,7 @@ def get_elem(accw: list[int]) -> int:
     for i, w in enumerate(accw):
         if r < w:
             return i
-    raise ValueError(f'Impossible state: {r} > {accw[-1]}')
+    raise ValueError(f"Impossible state: {r} > {accw[-1]}")
 
 
 def get_subset_pool(weights: list[int], k: int) -> list[int]:

@@ -12,4 +12,3 @@ def calculate(msgs: int, k: int, people: int):
     """
     res = msgs / people
     return res + calc(res, msgs, k - 1, people - 1)
-

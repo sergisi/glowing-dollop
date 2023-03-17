@@ -11,13 +11,14 @@ class Context:
 
     Note that ring_order < people, but it is not checked programatically.
     """
+
     people: int
     ring_order: int
-    distribution: typing.Callable[['Context'], list[int]]
+    distribution: typing.Callable[["Context"], list[int]]
 
     @functools.cached_property
     def message_list(self):
         return self.distribution(self)
 
     def __repr__(self):
-        return f'Context({self.people=}, {self.ring_order=}, {self.message_list=})'
+        return f"Context({self.people=}, {self.ring_order=}, {self.message_list=})"

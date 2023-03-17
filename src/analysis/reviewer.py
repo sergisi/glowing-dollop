@@ -2,8 +2,9 @@ import typing
 import dataclasses as dto
 import functools
 
-from .scorer import anonymity_score
+from .scorer import anonymity_score, User
 from src.simulation import Simulation
+
 
 @dto.dataclass
 class Review:
@@ -32,12 +33,18 @@ class Review:
         by them.
 
     """
+
     simulation: Simulation
-    scorer: typing.Callable[[Simulation], list[float]] = anonymity_score
+    users: list[User]
+    # scorer: typing.Callable[[Simulation], list[User]] = anonymity_score
 
     @functools.cached_property
-    def scores(self) -> list[tuple[int, float]]:
-        return sorted(list(enumerate(self.scorer(self.simulation))), key=lambda x: x[1])
+    def users(self) -> list[User]:
+        return list(self.scorer(self.simulation))
+
+    @functools.cached_property
+    def scores(self) -> list[User]:
+        return sorted(self.users, key=lambda x: x.anonymity)
 
     @functools.cached_property
     def anonymity(self) -> int:
@@ -45,13 +52,13 @@ class Review:
         Returns how many people do not have any anonimity. It could be improved
         efficiently with a take-while instead of a filter, but I do not care.
         """
-        people_visible = list(filter(lambda x: x[1] == 1.0, self.scores))
+        people_visible = list(filter(lambda x: x.anonymity == 1.0, self.users))
         return len(people_visible)
 
     @functools.cached_property
     def medium_desviation(self) -> float:
         scores = self.scores
-        return sum(map(lambda x: abs(x[1] - self.mean), scores)) / len(scores)
+        return sum(map(lambda x: abs(x.anonymity - self.mean), scores)) / len(scores)
 
     # Note: there was a HOF function and a PeopleFinder class that I do not know
     # what they were or why they were useful. No docs provided, no code used.
@@ -59,29 +66,48 @@ class Review:
     @functools.cached_property
     def mean(self) -> float:
         scores = self.scores
-        return sum(map(lambda x: x[1], scores)) / len(scores)
+        return sum(map(lambda x: x.anonymity, scores)) / len(scores)
 
     @property
     def median(self) -> float:
         scores = self.scores
-        return scores[int(len(scores) / 2)][1]
+        return scores[int(len(scores) / 2)].anonymity
 
     @property
     def min(self) -> float:
-        return self.scores[0][1]
+        return self.scores[0].anonymity
 
     @property
     def max(self) -> float:
-        return self.scores[-1][1]
+        return self.scores[-1].anonymity
 
-    def describe(self, sep=' | '):
-        return sep.join(str(x) for x in
-                        [self.anonymity,
-                         self.medium_desviation,
-                         self.mean,
-                         self.median,
-                         self.min,
-                         self.max,
-                         len(self.simulation.msg_list),
-                         len(self.simulation.msg_list) * self.simulation.context.ring_order,
-                         ])
+    def quantile(self, p):
+        return self.scores[int(len(self.scores) * p)].anonymity
+
+    @property
+    def q05(self) -> float:
+        return self.scores[int(len(self.scores) * 0.05)].anonymity
+
+    @property
+    def q95(self) -> float:
+        return self.scores[int(len(self.scores) * 0.95)].anonymity
+
+    def describe(self, sep=" | "):
+        return sep.join(
+            str(x)
+            for x in [
+                self.anonymity,
+                self.medium_desviation,
+                self.mean,
+                self.min,
+                self.quantile(0.25),
+                self.median,
+                self.quantile(0.75),
+                self.max,
+                len(self.simulation.msg_list),
+                len(self.simulation.msg_list) * self.simulation.context.ring_order,
+            ]
+        )
+
+    def to_csv(self):
+        return "\n".join(u.to_csv_row() for u in self.users)

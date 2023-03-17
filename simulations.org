@@ -1,0 +1,111 @@
+#+title: Simulations
+
+* Statistics that I desire
++ How many superusers, users, and lurkers are?
++ How many in the signature?
++ Difference in histogram of messages.
++ Given a user with little messages,
+   can you guarantee that all the messages are his?
++ Given a user with a lot of messages, can you guarantee that
+  it is a superuser?
++ What about normal users?
+
+** On histogram attack
+It has to be defined the 3 groups that users have, and a statistical way
+gather them.
+
+*** 1-9-90 Rule
+The way is simple: count the occurences of each user in the list of messages,
+as well as the final list. This is already being done in the users.
+
+Gather it by user and sort it by the number of messages. Then make the sets
+of users of each of them. They should be a range if left unchanged in the list
+messages, but we need to get it as there will be different simulations with a
+change of user bahaviors.
+
+The idea is that after the signature, although super-user may remain superusers or
+users, all the super-users in the signature will not be close to superuser. For lurkers,
+if the average privacy is kept, then you may be able to analyze if they are lurkers, but
+a high anonymity may remain.
+
+*** The design
+Review needs a more porwerful approach, as it should gather more data per user. As such,
+it will be converted from user to a DTO with different fields:
++ user id
++ messages in list of messages, i.e. messages
++ messages in signatures, i.e. signatures
+
+Then both statistics can be explained. There should be one additional method, to gather
+the proportion of messages that have been sent by the user, as it needs to accuretely
+describe how the curve bends the encryption, making it more harder to statistically
+analyze the user patterns.
+
+* Design on Review
+
+I feel like review may become a monstruous class that I fear. I know that doing this:
+#+begin_src python
+import dataclasses as dto
+
+@dto.dataclass
+class MyClass:
+    a: int
+
+
+def add_two(self):
+    """
+    Some help
+    """
+    self.a += 2
+
+MyClass.add_two = add_two
+
+c = MyClass(3)
+c.add_two()
+print(help(c.add_two))
+#+end_src
+Would definetely help, but it may be a little bit trickier. I don't know if this should be
+the standard or offer a base object and functions that take said object.
+
+* Problems with parameters
+There is a delicacy between which parameters should be used for this encryption system. There are
+different kind of attacks that can be done:
+
++ Super-user attacks: how much certinety can you pick the super-users? How much privacy do they have?
++ User attacks: how much certain are you to pick a user? how much anonymity do they have on average?
++ Lurkers attacks: all lurkers should have more than x messages.
+
+  There seems to be no good parameters to feed all of them. Maybe a different approach is necesserly.
+
+
+* PROJ The Random approach
+No message-initial-ration weight is good to solve all the problems. Lurkers will be easy to spot with heavy-weight ratio, and super-users will be easy to spot with light-ratios.
+
+The idea is that every message has a completely random ratio, maybe it would solve the problem, as
+lurkers will have with some messages good chances to be used and super-users will have more chances to appear quite normally.
+
+
+* Analysing first message in a window
+How many probabilities have the first message in the window be the real message?
+
+The idea is that maybe the window favors way too much that the first message that appears is
+the real one, and the subsequential of them is just the increased probabilities of that one. So,
+studying how it works would be a better way to check if this forum is secure enough.
+
+** How to compute it
+0 arrays for the users. Add one for every new message, substract one when it leaves the window.
+
+When a new window arrives, for every user in the window:
+- if it has appeared :: skip
+- if the user has not appeared and its user has send the message :: add one to broken and total
+- if the user has not appeared and has not send the message :: add one to total
+
+broken / total is the probability of a message being sent by it's user in the window. To keep it comparable with the anonymity, we will use the inverse of the probability.
+
+
+
+| reviewer | anonymity |         medium dev |               mean |             median |                min | q0.25 | q0.75 |   max | #messages | #signatures |
+| normal   |         0 | 19.044009081392986 | 25.166891788486186 | 14.454545454545455 | 2.6823529411764704 |   7.0 |  36.0 | 134.0 |      5397 |       43176 |
+| window   |         0 |  23.90631659601147 | 39.713108471151486 |                 33 | 2.5194805194805197 |    15 |  57.0 | 164.0 |      5397 |       43176 |
+
+** Results
+Window is better, by far. Proceed to write thesis about that.

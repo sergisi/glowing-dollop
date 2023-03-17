@@ -204,7 +204,10 @@ What happens if a superuser goes to lurking for a while?
 
 I should make some simulation to prove the different methodologies.
 
-** TODO New encryption method
+** DONE New encryption method
 Get the last n messages to see how it adapts. It should prevent snowballing with more messages, and it would be quicker to adapt when user behaviour patterns change.
 
 ** TODO Moving average as encryption
+
+** TODO Statistical analysis
+Can I get who is the superusers accuretely.
