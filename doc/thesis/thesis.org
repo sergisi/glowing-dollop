@@ -85,12 +85,35 @@ This solution was inconvenient because it sacrificed the anonymity of both lurke
 
 Another problem is the lack of scalability. As more messages are sent in the forum, more costly is to send another message, as you have to add all the weights to be able to sign. This is not a problem with smaller forums, but consider that this forum is used in a big city with millions of habitants. It could potentially mean that after some years, it is not possible to post anymore. For this reason, it was argued that instead of decreasing the weight with time, creating a window of the last $n$ signatures and computing the weight with them, would be more efficient. Additionaly, as the window is limited, there is a limit in the weight that the user can carry, possibly making the algorithm solve the snowballing effect.
 
-Finally, #+TODO change in user habits The purpose of this paper is to simulate the window approach and compare the anonymity to the previous algorithm.
+Finally,
+
++ What to add?
+  + [ ] User changes behaviour?
+  + [ ] New users? How it will adapt
+  + [ ] Computationally expensive?
+
+
+#+TODO change in user habits The purpose of this paper is to simulate the window approach and compare the anonymity to the previous algorithm.
 
 * Methodology
++ [ ] Add parameters to simulation fig. maybe redo the fig.
 The anonymity of a user is declared as the number of messages sent divided by the number of messages signed. This will be the most important value that we can use to assert how strong is the cryptosystem. But, let's showcase that it is not valuable for a specific user. If one user has a low anonymity, but, with the same number of signatures, most users have a high anonymity, then it's impossible to discern which is the low anonymity user, as the attacker would a priori only have the signatures as a way to tell which user posted. As such, it matters the average or the median of anonymity in a group of users with similar number of signatures.
 
-Now, in a simulation we can find the distribution of signatures. Although the messages crearly receive a Zipf distribution, the final distribution on signatures should be more normalized. A quick execution
+Now, in a simulation we can find the distribution of signatures. Although the messages crearly receive a Zipf distribution, the final distribution on signatures should be more normalized. A quick execution [[fig:sign-dist]] showcases that the number of signatures peak at 80 signatures, and it has a more defined normal distribution. For this reason, to describe groups with similar number of signatures we used quantiles of the users, which would provide a more meaningful insight that all of them grouped together.
+
+#+name: fig:sign-dist
+#+caption: Distribution of messages and signtures. As seen, most users only post one message, while they appear on 80 signatures.
+[[file:sign-dist.png]]
+
++ [ ] Study the relationship between quartiles and users
++ [ ] Results
++ [ ] Other attacks
+
+Additionally, it was regarded necessary to test how much anonymity has the a message that hadn't appeared in the window before. As messages outside of the window don't have the same probabilities to appear, this could mean that they only appear on the window when they post, which would mean that they don't have as much anonymity.
+
+With all this information, a simulation program has been made. It can be seen in [[https://github.com/sergisi/glowing-dollop][this link]]. The simulation creates a Zipf distribution, runs a simulation for the encryption method, and either provides the statistical analysis by itself, or leverages a CSV, where each row represents a user with the number of messages posted and the number of signatures posted.
+
+
 
 * TODO Results
 + [ ] add graphic distribution of anonymity
@@ -99,6 +122,27 @@ Now, in a simulation we can find the distribution of signatures. Although the me
 + [ ] add caveat of first message
   + [ ] explain that in simulations, it has even better anonymity than normal
 + [ ] Add boxplots of anonymity of users.
+
+The results can be shown in [[tab:results]]. First, the parameters of the preferential attachment are provided in order to prevent bad lurkers, which means that the initial weight that all users have is 5 times more higher than the message weight. Second, the most important metric is comparing the lowest score of the same group. In this example, super-users have a the lowest score in total messages on the preferential signature, which makes it the worst case scenario in this example.
+#+name: tab:results
+#+caption: Results of the simulation. The first column means the type of reviewer that it has, where the first item in a group represents the analysis, and the subsequential groups represent those in the quartiles that define lurkers, users, and super-users. The parameters of the simulation are as follow: 400 people, 8 people per signature, 100 messages for the most active user 20 messages for the window. Window signature has 1 of initial weight and 20 for each message that they appear in the window. For the preferential signature, it has  an initial weight of 5 and adds 1 for each signature. Lurkers are defined as the first 0.01 quantile and superuser as the last 0.01. The parameter $s$ of the Zipf distibution is 1.2.
+| reviewer      |               mean |             median |
+|---------------+--------------------+--------------------|
+| first-message |  6.801399517583823 |                5.5 |
+| lurkers       |                5.5 |                6.0 |
+| users         |  6.814937149461951 |                5.5 |
+| superusers    |  6.776111111111112 |  5.777777777777778 |
+|---------------+--------------------+--------------------|
+| window        | 27.464085834633728 | 14.833333333333334 |
+| lurkers       |             13.375 |               17.0 |
+| users         | 27.835663428513456 |               15.0 |
+| superusers    |  5.138567469053972 |  5.192771084337349 |
+|---------------+--------------------+--------------------|
+| preferential  |  33.11800417127676 |               18.0 |
+| lurkers       | 14.541666666666666 |               21.0 |
+| users         | 33.598754232864344 |               18.0 |
+| superusers    |  4.580835640303565 |   4.63013698630137 |
+
 
 * TODO Conclusions
 + [ ] Window is a superior approach to forum schemes.

@@ -28,6 +28,9 @@ def _preferential(
     s: float = 2.5,
     seed: int | None = None,
 ) -> simulation.Simulation:
+    """
+    Leverages preferential analysis. Returns the simulation to perform the reports.
+    """
     random.seed(seed)
     ctx = context.Context(
         people=people,
@@ -53,12 +56,16 @@ def preferential(
     seed: int | None = None,
     headers: bool = True,
 ):
+    """
+        Preferential attachment simulation. This simulation weights all the messages. It reports the user-data
+        in total and with two different quartiles.
+    """
     res = _preferential(
         people, ring_order, max_msg, message_weight, initial_weight, s, seed
     )
     if headers:
         _print_headers()
-    _print_description(res, first_quantile, second_quantile)
+    _print_description(res, first_quantile, second_quantile, 'preferential')
 
 
 @app.command()
@@ -71,6 +78,10 @@ def csv_preferential(
     s: float = 2.5,
     seed: int | None = None,
 ):
+    """
+        Preferential attachment simulation. Returns all the data of the users in a csv, printed in the
+        stdout.
+    """
     res = _preferential(
         people, ring_order, max_msg, message_weight, initial_weight, s, seed
     )
@@ -78,7 +89,7 @@ def csv_preferential(
     print(r.to_csv())
 
 
-def _timely(
+def _window(
     people: int,
     ring_order: int,
     max_msg: int,
@@ -87,7 +98,10 @@ def _timely(
     initial_weight: int = 1,
     s: float = 2.5,
     seed: int | None = None,
-):
+) -> simulation.Simulation:
+    """
+        Window simulation utils. Just to output more numbers.
+    """
     random.seed(seed)
     ctx = context.Context(
         people=people,
@@ -123,7 +137,14 @@ def _print_headers():
     )
 
 
-def _print_description(res: simulation.Simulation, first_quantile, second_quantile, pref='normal', user_list=None):
+def _print_description(res: simulation.Simulation,
+                       first_quantile,
+                       second_quantile,
+                       pref='normal',
+                       user_list=None):
+    """
+        Prints a description of the users.
+    """
     if user_list == None:
         user_list = anonymity_score(res)
     r = Review(res, user_list)
@@ -133,7 +154,7 @@ def _print_description(res: simulation.Simulation, first_quantile, second_quanti
 
 
 @app.command()
-def timely(
+def window(
     people: int,
     ring_order: int,
     max_msg: int,
@@ -145,13 +166,17 @@ def timely(
     second_quantile: float = 0.75,
     seed: int | None = None,
 ):
-    res = _timely(
+    """
+    Analysis a window attachmment. It prints two adjancent tables, one for the first mesage
+    anonymity and the other for the global messages.
+    """
+    res = _window(
         people, ring_order, max_msg, memory, message_weight, initial_weight, s, seed
     )
     _print_headers()
     user_list = anonymity_window(memory)(res)
-    _print_description(res, first_quantile, second_quantile, 'window', user_list)
-    _print_description(res, first_quantile, second_quantile)
+    _print_description(res, first_quantile, second_quantile, 'first-message', user_list)
+    _print_description(res, first_quantile, second_quantile, 'window')
 
 
 @app.command()
@@ -169,8 +194,12 @@ def report(
     second_quantile: float = 0.75,
     seed: int | None = None,
 ):
+    """
+        Util to create both a report of a window attachment and preferential attachment. It can change the
+        parameters accordingly so they are tailored for both algorithms.
+    """
     random.seed(seed)
-    timely(
+    window(
         people,
         ring_order,
         max_msg,
@@ -198,7 +227,7 @@ def report(
 
 
 @app.command()
-def csv_timely(
+def csv_window(
     people: int,
     ring_order: int,
     max_msg: int,
@@ -214,7 +243,7 @@ def csv_timely(
         "all": lambda r: Review(r, anonymity_score(res)),
         "window": lambda r: Review(r, anonymity_window(memory)(res)),
     }
-    r = _timely(
+    r = _window(
         people, ring_order, max_msg, memory, message_weight, initial_weight, s, seed
     )
     r = modes[mode](r)
@@ -275,9 +304,9 @@ def test(
     max_msg: int = 100,
     s: float = 1.2,
 ):
-    assert command in ["timely", "randomly", "pref"]
+    assert command in ["window", "randomly", "pref"]
     attachments = {
-        "timely": timely_attachment_choice(message_weight, initial_weight, window),
+        "window": timely_attachment_choice(message_weight, initial_weight, window),
         "randomly": randomly_attachment_choice(window),
         "pref": preferential_attachment_choice(message_weight, initial_weight),
     }
