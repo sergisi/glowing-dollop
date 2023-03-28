@@ -240,8 +240,8 @@ def csv_window(
 ):
     assert mode in ["all", "window"]
     modes = {
-        "all": lambda r: Review(r, anonymity_score(res)),
-        "window": lambda r: Review(r, anonymity_window(memory)(res)),
+        "all": lambda r: Review(r, anonymity_score(r)),
+        "window": lambda r: Review(r, anonymity_window(memory)(r)),
     }
     r = _window(
         people, ring_order, max_msg, memory, message_weight, initial_weight, s, seed

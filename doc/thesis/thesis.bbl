@@ -9,4 +9,14 @@ Y.~T. R.L.~Rivest, A.~Shamir, ``How to leak a secret, in intl. conf. on the
   theroy and application of cryptology and information security, lecure notes
   in computer science,'' vol.~2248, pp.~552--565, 2001.
 
+\bibitem{zipf}
+J.~C. B.~Carron-Arthur and K.~Friffiths, ``Describing the distribution of
+  engagement in an internet support group by post frequency: A comparison of
+  the 90-9-1 principle and zipf's law, in internet interventions,'' vol.~1,
+  no.~4, pp.~165--168, 2014.
+
+\bibitem{recsi}
+S.~S. O.~Alàs, F.~Sebé, ``Anonymity and unlinkability in ring signature-based
+  discussion boardsi,'' pp.~7--10.
+
 \end{thebibliography}
